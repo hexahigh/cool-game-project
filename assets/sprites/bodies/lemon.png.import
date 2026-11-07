@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ca07of1coqrfw"
-path="res://.godot/imported/fotball.png-249bd1e3a96731a6b263e72b3585112a.ctex"
+uid="uid://cj8b2tq367bcs"
+path="res://.godot/imported/lemon.png-a1a3d9e5742cb3e25321c4ebe9b5c62c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/fotball.png"
-dest_files=["res://.godot/imported/fotball.png-249bd1e3a96731a6b263e72b3585112a.ctex"]
+source_file="res://assets/sprites/bodies/lemon.png"
+dest_files=["res://.godot/imported/lemon.png-a1a3d9e5742cb3e25321c4ebe9b5c62c.ctex"]
 
 [params]
 

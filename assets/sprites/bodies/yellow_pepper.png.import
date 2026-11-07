@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://chbjccvh3cqqr"
-path="res://.godot/imported/yellow_pepper.png-b9249b726edb4f2fa8d2b3e41a0a439d.ctex"
+path="res://.godot/imported/yellow_pepper.png-2db672a60d8525889d9d85e3a3748f10.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/yellow_pepper.png"
-dest_files=["res://.godot/imported/yellow_pepper.png-b9249b726edb4f2fa8d2b3e41a0a439d.ctex"]
+source_file="res://assets/sprites/bodies/yellow_pepper.png"
+dest_files=["res://.godot/imported/yellow_pepper.png-2db672a60d8525889d9d85e3a3748f10.ctex"]
 
 [params]
 

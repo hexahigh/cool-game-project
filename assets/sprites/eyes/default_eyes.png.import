@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://djh3yg60ukklx"
-path="res://.godot/imported/coffee_machine.png-f50b38ca1a3a6ac94df2844468b76b73.ctex"
+uid="uid://daly6hrxmw0vj"
+path="res://.godot/imported/default_eyes.png-3af419aaad06a66935ee0322eb48a261.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/coffee_machine.png"
-dest_files=["res://.godot/imported/coffee_machine.png-f50b38ca1a3a6ac94df2844468b76b73.ctex"]
+source_file="res://assets/sprites/eyes/default_eyes.png"
+dest_files=["res://.godot/imported/default_eyes.png-3af419aaad06a66935ee0322eb48a261.ctex"]
 
 [params]
 

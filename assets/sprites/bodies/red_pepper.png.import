@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://besf7i8rxy3i"
-path="res://.godot/imported/closed_eyes.png-543189b45263a9deba3c345b1cfd6768.ctex"
+uid="uid://dch7x4pn658m2"
+path="res://.godot/imported/red_pepper.png-4fe86b5953a9a0895905850243d4353b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/closed_eyes.png"
-dest_files=["res://.godot/imported/closed_eyes.png-543189b45263a9deba3c345b1cfd6768.ctex"]
+source_file="res://assets/sprites/bodies/red_pepper.png"
+dest_files=["res://.godot/imported/red_pepper.png-4fe86b5953a9a0895905850243d4353b.ctex"]
 
 [params]
 

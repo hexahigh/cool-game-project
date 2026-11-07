@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://co8brmav50ei2"]
 
 [ext_resource type="Texture2D" uid="uid://bay50sd6ik48r" path="res://assets/sprites/foot.png" id="1_ixuau"]
-[ext_resource type="Texture2D" uid="uid://dch7x4pn658m2" path="res://assets/sprites/red_pepper.png" id="1_qt8wm"]
-[ext_resource type="Texture2D" uid="uid://daly6hrxmw0vj" path="res://assets/sprites/default_eyes.png" id="3_amg7d"]
+[ext_resource type="Texture2D" uid="uid://dch7x4pn658m2" path="res://assets/sprites/bodies/red_pepper.png" id="1_qt8wm"]
+[ext_resource type="Texture2D" uid="uid://daly6hrxmw0vj" path="res://assets/sprites/eyes/default_eyes.png" id="3_amg7d"]
 
 [sub_resource type="Animation" id="Animation_jhqwb"]
 length = 0.001

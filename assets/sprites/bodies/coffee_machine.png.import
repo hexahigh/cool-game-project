@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://14lbciy425ki"
-path="res://.godot/imported/teddie.png-63be8a18ebbfaf9a3f724101fb1bb094.ctex"
+uid="uid://djh3yg60ukklx"
+path="res://.godot/imported/coffee_machine.png-a9bca9c52cd170adfc03af060debe246.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/teddie.png"
-dest_files=["res://.godot/imported/teddie.png-63be8a18ebbfaf9a3f724101fb1bb094.ctex"]
+source_file="res://assets/sprites/bodies/coffee_machine.png"
+dest_files=["res://.godot/imported/coffee_machine.png-a9bca9c52cd170adfc03af060debe246.ctex"]
 
 [params]
 
