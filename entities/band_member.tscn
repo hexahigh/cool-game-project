@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://co8brmav50ei2"]
 
 [ext_resource type="Texture2D" uid="uid://bay50sd6ik48r" path="res://assets/sprites/foot.png" id="1_ixuau"]
-[ext_resource type="Texture2D" uid="uid://dch7x4pn658m2" path="res://assets/sprites/bodies/red_pepper.png" id="1_qt8wm"]
+[ext_resource type="Texture2D" uid="uid://cj8b2tq367bcs" path="res://assets/sprites/bodies/lemon.png" id="2_jhqwb"]
 [ext_resource type="Texture2D" uid="uid://daly6hrxmw0vj" path="res://assets/sprites/eyes/default_eyes.png" id="3_amg7d"]
 [ext_resource type="Texture2D" uid="uid://ulbx78pgonep" path="res://assets/sprites/accessories/top_hat.png" id="4_jhqwb"]
 
@@ -210,10 +210,115 @@ tracks/8/keys = {
 "times": PackedFloat32Array(0)
 }
 
+[sub_resource type="Animation" id="Animation_udyt4"]
+resource_name = "walking"
+length = 1.5999999999999999
+loop_mode = 1
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("body:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(-8.000001, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("body:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(-13.999996, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("body:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("right_foot:position:x")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(2.9999995, -0.25, 0, 0.25, 0, -21.000004, 0, 0, 0.15555556, 4.000001, -6, -0.04050082, -1.8225373, 0.048388064, 2.1774635, 2.9999995, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.8, 1.2, 1.6)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("right_foot:position:y")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(-3.0000002, -0.25, 0, 0.25, 0, -3, 0, 0, 0.15555556, -3.973643e-08, -11, -0.04050082, 1.8105279e-08, 0.048388064, -2.1631152e-08, -3.0000002, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.8, 1.2, 1.6)
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("right_foot:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/6/type = "bezier"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("left_foot:position:x")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(-6.9999995, -0.25, 0, 0.25, 0, -0.76129925, -0.06269331, -0.99999994, 0, 0, 17, -0.078993574, -3.0000002, 0, 0, -6.9999995, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.36666667, 0.7834546, 1.6)
+}
+tracks/7/type = "bezier"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("left_foot:position:y")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(-2, -0.25, 0, 0.25, 0, -10, -0.06269331, 1.3333335, 0, 0, -2, -0.078993574, -1.3333334, 0, 0, -2, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.36666667, 0.7834546, 1.6)
+}
+tracks/8/type = "bezier"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("left_foot:rotation")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_amg7d"]
 _data = {
 &"RESET": SubResource("Animation_amg7d"),
-&"idle": SubResource("Animation_jhqwb")
+&"idle": SubResource("Animation_jhqwb"),
+&"walking": SubResource("Animation_udyt4")
 }
 
 [node name="BandMember" type="Node2D" unique_id=1355637323]
@@ -227,7 +332,7 @@ offset = Vector2(183.60652, 49.902527)
 [node name="body" type="Sprite2D" parent="." unique_id=887108495]
 position = Vector2(-8.000001, -13.999996)
 scale = Vector2(0.045, 0.045)
-texture = ExtResource("1_qt8wm")
+texture = ExtResource("2_jhqwb")
 offset = Vector2(166.57452, -374.29156)
 
 [node name="eyes" type="Sprite2D" parent="body" unique_id=740870741]
