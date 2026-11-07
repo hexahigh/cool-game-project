@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://cygu65a30xg5a"]
+
+[ext_resource type="Script" uid="uid://yhq0podfd0dk" path="res://scripts/band_member.gd" id="1_4tj27"]
+[ext_resource type="PackedScene" uid="uid://co8brmav50ei2" path="res://entities/band_member.tscn" id="2_g0vwk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3p4ox"]
+size = Vector2(44, 60)
+
+[node name="BandMember" type="CharacterBody2D" unique_id=610279601]
+collision_layer = 4
+motion_mode = 1
+script = ExtResource("1_4tj27")
+
+[node name="Shape" type="CollisionShape2D" parent="." unique_id=1922244089]
+position = Vector2(0, -28)
+shape = SubResource("RectangleShape2D_3p4ox")
+
+[node name="Audio" type="AudioStreamPlayer2D" parent="." unique_id=1056771738]
+attenuation = 0.0
+panning_strength = 2.0
+
+[node name="Visual" parent="." unique_id=1355637323 instance=ExtResource("2_g0vwk")]

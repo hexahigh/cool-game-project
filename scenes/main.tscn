@@ -1,21 +1,12 @@
 [gd_scene format=3 uid="uid://ba28e8c76o6ig"]
 
 [ext_resource type="Script" uid="uid://sydcesm8n887" path="res://scripts/player.gd" id="1_o5qli"]
-[ext_resource type="Script" uid="uid://de5tx63a8cilm" path="res://scripts/stem_emitter.gd" id="1_tipki"]
-[ext_resource type="AudioStream" uid="uid://bvy8ailud7t1c" path="res://songs/no-messing/drums.mp3" id="2_85g3d"]
-[ext_resource type="AudioStream" uid="uid://jc5meaocrnv6" path="res://songs/no-messing/bass.mp3" id="3_choun"]
-[ext_resource type="AudioStream" uid="uid://dfqxq33rltk4s" path="res://songs/no-messing/guitar.mp3" id="4_ya4ey"]
-[ext_resource type="AudioStream" uid="uid://bnvo775cni14k" path="res://songs/no-messing/piano.mp3" id="5_eb6dy"]
-[ext_resource type="AudioStream" uid="uid://bj7ko1e31tkiu" path="res://songs/no-messing/organ.mp3" id="6_trceg"]
-[ext_resource type="AudioStream" uid="uid://ckcmssie8h1dp" path="res://songs/no-messing/horns.mp3" id="7_a8y0u"]
-[ext_resource type="AudioStream" uid="uid://c7d7ac3djhms7" path="res://songs/doggie-barn/banjo.mp3" id="8_jbj1t"]
+[ext_resource type="Script" uid="uid://bon24pqnk5pkj" path="res://scripts/collection_area.gd" id="4_o6xl0"]
+[ext_resource type="Script" uid="uid://dr0xy7wsdedxy" path="res://scripts/stage.gd" id="5_tipki"]
+[ext_resource type="Script" uid="uid://dniuc8afj72yc" path="res://scripts/hud.gd" id="6_85g3d"]
+[ext_resource type="Script" uid="uid://c4gapq8qigyok" path="res://scripts/game_manager.gd" id="7_choun"]
 [ext_resource type="Script" uid="uid://d2vo7a04chmvv" path="res://scripts/audio_listener.gd" id="9_85g3d"]
-[ext_resource type="AudioStream" uid="uid://buqjks6gmcr38" path="res://songs/doggie-barn/bass.mp3" id="9_muem4"]
 [ext_resource type="Script" uid="uid://ce3sg2o3j6tu4" path="res://scripts/stem_interaction.gd" id="10_choun"]
-[ext_resource type="AudioStream" uid="uid://bdp608fu8qpcq" path="res://songs/doggie-barn/fiddle.mp3" id="10_dp3eg"]
-[ext_resource type="AudioStream" uid="uid://d01ajpohuo03k" path="res://songs/doggie-barn/guitar.mp3" id="11_0ld40"]
-[ext_resource type="AudioStream" uid="uid://2hwub2it5prw" path="res://songs/doggie-barn/mandolin.mp3" id="12_gqmmt"]
-[ext_resource type="AudioStream" uid="uid://cy373bkpn7blx" path="res://songs/doggie-barn/shaker.mp3" id="13_yc10j"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o5qli"]
 size = Vector2(1088, 32)
@@ -34,9 +25,6 @@ size = Vector2(80, 80)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tefeu"]
 size = Vector2(112, 80)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_emitter"]
-size = Vector2(26, 26)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tipki"]
 radius = 15.0
@@ -132,7 +120,7 @@ mouse_filter = 2
 color = Color(0.5411765, 0.3529412, 0.23137255, 1)
 
 [node name="CrateB" type="StaticBody2D" parent="Room" unique_id=498670478]
-position = Vector2(-280, 160)
+position = Vector2(-430, -230)
 
 [node name="Shape" type="CollisionShape2D" parent="Room/CrateB" unique_id=1682790874]
 shape = SubResource("RectangleShape2D_tefeu")
@@ -145,283 +133,13 @@ offset_bottom = 40.0
 mouse_filter = 2
 color = Color(0.5411765, 0.3529412, 0.23137255, 1)
 
-[node name="StemEmitters" type="Node2D" parent="." unique_id=1673718458]
+[node name="CollectionArea" type="Node2D" parent="." unique_id=1673832844]
+script = ExtResource("4_o6xl0")
 
-[node name="NoMessingDrums" type="CharacterBody2D" parent="StemEmitters" unique_id=1947016303]
-position = Vector2(-400, -200)
-collision_layer = 4
-motion_mode = 1
-script = ExtResource("1_tipki")
-stem = ExtResource("2_85g3d")
-cube_color = Color(1, 0.3019608, 0.3019608, 1)
+[node name="Stage" type="Node2D" parent="." unique_id=1181962560]
+script = ExtResource("5_tipki")
 
-[node name="Shape" type="CollisionShape2D" parent="StemEmitters/NoMessingDrums" unique_id=1141624922]
-shape = SubResource("RectangleShape2D_emitter")
-
-[node name="Visual" type="ColorRect" parent="StemEmitters/NoMessingDrums" unique_id=912153279]
-offset_left = -12.0
-offset_top = -12.0
-offset_right = 12.0
-offset_bottom = 12.0
-color = Color(1, 0.3019608, 0.3019608, 1)
-
-[node name="Audio" type="AudioStreamPlayer2D" parent="StemEmitters/NoMessingDrums" unique_id=1106408378]
-stream = ExtResource("2_85g3d")
-volume_db = -80.0
-attenuation = 0.0
-panning_strength = 2.0
-
-[node name="NoMessingBass" type="CharacterBody2D" parent="StemEmitters" unique_id=630622704]
-position = Vector2(-400, 200)
-collision_layer = 4
-motion_mode = 1
-script = ExtResource("1_tipki")
-stem = ExtResource("3_choun")
-cube_color = Color(0.3019608, 0.49019608, 1, 1)
-
-[node name="Shape" type="CollisionShape2D" parent="StemEmitters/NoMessingBass" unique_id=604126115]
-shape = SubResource("RectangleShape2D_emitter")
-
-[node name="Visual" type="ColorRect" parent="StemEmitters/NoMessingBass" unique_id=480711665]
-offset_left = -12.0
-offset_top = -12.0
-offset_right = 12.0
-offset_bottom = 12.0
-color = Color(0.3019608, 0.49019608, 1, 1)
-
-[node name="Audio" type="AudioStreamPlayer2D" parent="StemEmitters/NoMessingBass" unique_id=1184905083]
-stream = ExtResource("3_choun")
-volume_db = -80.0
-attenuation = 0.0
-panning_strength = 2.0
-
-[node name="NoMessingGuitar" type="CharacterBody2D" parent="StemEmitters" unique_id=1184553743]
-position = Vector2(-100, -235)
-collision_layer = 4
-motion_mode = 1
-script = ExtResource("1_tipki")
-stem = ExtResource("4_ya4ey")
-cube_color = Color(1, 0.8235294, 0.3019608, 1)
-
-[node name="Shape" type="CollisionShape2D" parent="StemEmitters/NoMessingGuitar" unique_id=412304843]
-shape = SubResource("RectangleShape2D_emitter")
-
-[node name="Visual" type="ColorRect" parent="StemEmitters/NoMessingGuitar" unique_id=1571367958]
-offset_left = -12.0
-offset_top = -12.0
-offset_right = 12.0
-offset_bottom = 12.0
-color = Color(1, 0.8235294, 0.3019608, 1)
-
-[node name="Audio" type="AudioStreamPlayer2D" parent="StemEmitters/NoMessingGuitar" unique_id=1067840707]
-stream = ExtResource("4_ya4ey")
-volume_db = -80.0
-attenuation = 0.0
-panning_strength = 2.0
-
-[node name="NoMessingPiano" type="CharacterBody2D" parent="StemEmitters" unique_id=2145727911]
-position = Vector2(255, -210)
-collision_layer = 4
-motion_mode = 1
-script = ExtResource("1_tipki")
-stem = ExtResource("5_eb6dy")
-cube_color = Color(0.7019608, 0.4, 1, 1)
-
-[node name="Shape" type="CollisionShape2D" parent="StemEmitters/NoMessingPiano" unique_id=352357843]
-shape = SubResource("RectangleShape2D_emitter")
-
-[node name="Visual" type="ColorRect" parent="StemEmitters/NoMessingPiano" unique_id=342994530]
-offset_left = -12.0
-offset_top = -12.0
-offset_right = 12.0
-offset_bottom = 12.0
-color = Color(0.7019608, 0.4, 1, 1)
-
-[node name="Audio" type="AudioStreamPlayer2D" parent="StemEmitters/NoMessingPiano" unique_id=1847710918]
-stream = ExtResource("5_eb6dy")
-volume_db = -80.0
-attenuation = 0.0
-panning_strength = 2.0
-
-[node name="NoMessingOrgan" type="CharacterBody2D" parent="StemEmitters" unique_id=2024779320]
-position = Vector2(400, 200)
-collision_layer = 4
-motion_mode = 1
-script = ExtResource("1_tipki")
-stem = ExtResource("6_trceg")
-cube_color = Color(0.3019608, 1, 0.7019608, 1)
-
-[node name="Shape" type="CollisionShape2D" parent="StemEmitters/NoMessingOrgan" unique_id=1177945884]
-shape = SubResource("RectangleShape2D_emitter")
-
-[node name="Visual" type="ColorRect" parent="StemEmitters/NoMessingOrgan" unique_id=1301181612]
-offset_left = -12.0
-offset_top = -12.0
-offset_right = 12.0
-offset_bottom = 12.0
-color = Color(0.3019608, 1, 0.7019608, 1)
-
-[node name="Audio" type="AudioStreamPlayer2D" parent="StemEmitters/NoMessingOrgan" unique_id=440862368]
-stream = ExtResource("6_trceg")
-volume_db = -80.0
-attenuation = 0.0
-panning_strength = 2.0
-
-[node name="NoMessingHorns" type="CharacterBody2D" parent="StemEmitters" unique_id=2059015043]
-position = Vector2(110, 235)
-collision_layer = 4
-motion_mode = 1
-script = ExtResource("1_tipki")
-stem = ExtResource("7_a8y0u")
-cube_color = Color(1, 0.6039216, 0.23921569, 1)
-
-[node name="Shape" type="CollisionShape2D" parent="StemEmitters/NoMessingHorns" unique_id=1232016746]
-shape = SubResource("RectangleShape2D_emitter")
-
-[node name="Visual" type="ColorRect" parent="StemEmitters/NoMessingHorns" unique_id=762350577]
-offset_left = -12.0
-offset_top = -12.0
-offset_right = 12.0
-offset_bottom = 12.0
-color = Color(1, 0.6039216, 0.23921569, 1)
-
-[node name="Audio" type="AudioStreamPlayer2D" parent="StemEmitters/NoMessingHorns" unique_id=757996602]
-stream = ExtResource("7_a8y0u")
-volume_db = -80.0
-attenuation = 0.0
-panning_strength = 2.0
-
-[node name="DoggieBanjo" type="CharacterBody2D" parent="StemEmitters" unique_id=1921041755]
-position = Vector2(250, -60)
-collision_layer = 4
-motion_mode = 1
-script = ExtResource("1_tipki")
-stem = ExtResource("8_jbj1t")
-cube_color = Color(1, 0.1764706, 0.58431375, 1)
-
-[node name="Shape" type="CollisionShape2D" parent="StemEmitters/DoggieBanjo" unique_id=1353269694]
-shape = SubResource("RectangleShape2D_emitter")
-
-[node name="Visual" type="ColorRect" parent="StemEmitters/DoggieBanjo" unique_id=2129706745]
-offset_left = -12.0
-offset_top = -12.0
-offset_right = 12.0
-offset_bottom = 12.0
-color = Color(1, 0.1764706, 0.58431375, 1)
-
-[node name="Audio" type="AudioStreamPlayer2D" parent="StemEmitters/DoggieBanjo" unique_id=393897112]
-volume_db = -80.0
-attenuation = 0.0
-
-[node name="DoggieBass" type="CharacterBody2D" parent="StemEmitters" unique_id=42592622]
-position = Vector2(-250, -250)
-collision_layer = 4
-motion_mode = 1
-script = ExtResource("1_tipki")
-stem = ExtResource("9_muem4")
-cube_color = Color(0.48235294, 0.1764706, 1, 1)
-
-[node name="Shape" type="CollisionShape2D" parent="StemEmitters/DoggieBass" unique_id=2128378263]
-shape = SubResource("RectangleShape2D_emitter")
-
-[node name="Visual" type="ColorRect" parent="StemEmitters/DoggieBass" unique_id=326019948]
-offset_left = -12.0
-offset_top = -12.0
-offset_right = 12.0
-offset_bottom = 12.0
-color = Color(0.48235294, 0.1764706, 1, 1)
-
-[node name="Audio" type="AudioStreamPlayer2D" parent="StemEmitters/DoggieBass" unique_id=1760091066]
-volume_db = -80.0
-attenuation = 0.0
-
-[node name="DoggieFiddle" type="CharacterBody2D" parent="StemEmitters" unique_id=193662163]
-position = Vector2(-70, 40)
-collision_layer = 4
-motion_mode = 1
-script = ExtResource("1_tipki")
-stem = ExtResource("10_dp3eg")
-cube_color = Color(0, 0.8980392, 1, 1)
-
-[node name="Shape" type="CollisionShape2D" parent="StemEmitters/DoggieFiddle" unique_id=1752820207]
-shape = SubResource("RectangleShape2D_emitter")
-
-[node name="Visual" type="ColorRect" parent="StemEmitters/DoggieFiddle" unique_id=1955604559]
-offset_left = -12.0
-offset_top = -12.0
-offset_right = 12.0
-offset_bottom = 12.0
-color = Color(0, 0.8980392, 1, 1)
-
-[node name="Audio" type="AudioStreamPlayer2D" parent="StemEmitters/DoggieFiddle" unique_id=1297551160]
-volume_db = -80.0
-attenuation = 0.0
-
-[node name="DoggieGuitar" type="CharacterBody2D" parent="StemEmitters" unique_id=1644876253]
-position = Vector2(400, 60)
-collision_layer = 4
-motion_mode = 1
-script = ExtResource("1_tipki")
-stem = ExtResource("11_0ld40")
-cube_color = Color(0.972549, 0.98039216, 0.9882353, 1)
-
-[node name="Shape" type="CollisionShape2D" parent="StemEmitters/DoggieGuitar" unique_id=2123594204]
-shape = SubResource("RectangleShape2D_emitter")
-
-[node name="Visual" type="ColorRect" parent="StemEmitters/DoggieGuitar" unique_id=538551327]
-offset_left = -12.0
-offset_top = -12.0
-offset_right = 12.0
-offset_bottom = 12.0
-color = Color(0.972549, 0.98039216, 0.9882353, 1)
-
-[node name="Audio" type="AudioStreamPlayer2D" parent="StemEmitters/DoggieGuitar" unique_id=1500642455]
-volume_db = -80.0
-attenuation = 0.0
-
-[node name="DoggieMandolin" type="CharacterBody2D" parent="StemEmitters" unique_id=272913945]
-position = Vector2(-250, -60)
-collision_layer = 4
-motion_mode = 1
-script = ExtResource("1_tipki")
-stem = ExtResource("12_gqmmt")
-cube_color = Color(0.6156863, 1, 0, 1)
-
-[node name="Shape" type="CollisionShape2D" parent="StemEmitters/DoggieMandolin" unique_id=1264305150]
-shape = SubResource("RectangleShape2D_emitter")
-
-[node name="Visual" type="ColorRect" parent="StemEmitters/DoggieMandolin" unique_id=1601257872]
-offset_left = -12.0
-offset_top = -12.0
-offset_right = 12.0
-offset_bottom = 12.0
-color = Color(0.6156863, 1, 0, 1)
-
-[node name="Audio" type="AudioStreamPlayer2D" parent="StemEmitters/DoggieMandolin" unique_id=921948059]
-volume_db = -80.0
-attenuation = 0.0
-
-[node name="DoggieShaker" type="CharacterBody2D" parent="StemEmitters" unique_id=783837679]
-position = Vector2(-60, 265)
-collision_layer = 4
-motion_mode = 1
-script = ExtResource("1_tipki")
-stem = ExtResource("13_yc10j")
-cube_color = Color(1, 0.6901961, 0, 1)
-
-[node name="Shape" type="CollisionShape2D" parent="StemEmitters/DoggieShaker" unique_id=119827426]
-shape = SubResource("RectangleShape2D_emitter")
-
-[node name="Visual" type="ColorRect" parent="StemEmitters/DoggieShaker" unique_id=1478198340]
-offset_left = -12.0
-offset_top = -12.0
-offset_right = 12.0
-offset_bottom = 12.0
-color = Color(1, 0.6901961, 0, 1)
-
-[node name="Audio" type="AudioStreamPlayer2D" parent="StemEmitters/DoggieShaker" unique_id=791879695]
-volume_db = -80.0
-attenuation = 0.0
+[node name="Characters" type="Node2D" parent="." unique_id=1673718458]
 
 [node name="Player" type="CharacterBody2D" parent="." unique_id=1040575097 groups=["player"]]
 position = Vector2(0, 150)
@@ -440,7 +158,7 @@ color = Color(0.30588236, 0.6392157, 1, 1)
 shape = SubResource("CircleShape2D_tipki")
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=1901961611]
-zoom = Vector2(2, 2)
+zoom = Vector2(1.5, 1.5)
 limit_left = -544
 limit_top = -322
 limit_right = 544
@@ -470,3 +188,9 @@ theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 22
 text = "Follow me"
 horizontal_alignment = 1
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=1421596658]
+script = ExtResource("6_85g3d")
+
+[node name="GameManager" type="Node" parent="." unique_id=771515065]
+script = ExtResource("7_choun")

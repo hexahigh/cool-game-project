@@ -18,7 +18,6 @@ config/icon="res://icon.svg"
 [autoload]
 
 _mcp_game_helper="*res://addons/godot_ai/runtime/game_helper.gd"
-FmodManager="*uid://cds10pm7hwn3p"
 
 [display]
 
@@ -31,7 +30,7 @@ project/assembly_name="Cool Game Project"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/fmod/plugin.cfg", "res://addons/godot_ai/plugin.cfg")
+enabled=PackedStringArray("res://addons/godot_ai/plugin.cfg")
 
 [input]
 

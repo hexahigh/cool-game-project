@@ -1,11 +1,11 @@
 extends CanvasLayer
 
-## Hover and click handling for the stem cubes.
+## Hover and click handling for band members.
 ##
-## When the player is close to a cube and the mouse hovers it, a tooltip
-## follows the cursor. Clicking toggles whether the cube follows the player.
+## When the player is close to a character and the mouse hovers it, a tooltip
+## follows the cursor. Clicking toggles whether the character follows.
 
-@export var interact_radius: float = 150.0
+@export var interact_radius: float = 170.0
 
 @onready var _tooltip: Label = $Tooltip
 
@@ -66,15 +66,17 @@ func _place_tooltip(mouse_position: Vector2) -> void:
 	_tooltip.position = Vector2(mouse_position.x - width * 0.5, mouse_position.y + 18.0)
 
 
-## Returns the nearest interactable cube under the mouse, or null.
+## Returns the nearest interactable character under the mouse, or null.
 func _find_hovered(mouse_position: Vector2):
 	if _player == null:
 		return null
 
 	var mouse_world: Vector2 = get_viewport().get_canvas_transform().affine_inverse() * mouse_position
-	for emitter in get_tree().get_nodes_in_group("stem_emitters"):
-		if emitter.global_position.distance_to(_player.global_position) > interact_radius:
+	for member in get_tree().get_nodes_in_group("band_members"):
+		if not member.is_collectible():
 			continue
-		if emitter.get_hover_rect().has_point(mouse_world):
-			return emitter
+		if member.global_position.distance_to(_player.global_position) > interact_radius:
+			continue
+		if member.get_hover_rect().has_point(mouse_world):
+			return member
 	return null
