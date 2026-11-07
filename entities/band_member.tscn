@@ -554,6 +554,28 @@ tracks/8/keys = {
 "points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0)
 }
+tracks/9/type = "bezier"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("body/eyes:scale:x")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.36198038, 1)
+}
+tracks/10/type = "bezier"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("body/eyes:scale:y")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0.8, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.36198038, 1)
+}
 
 [sub_resource type="Animation" id="Animation_udyt4"]
 resource_name = "walking"
@@ -690,6 +712,17 @@ tracks/11/keys = {
 "handle_modes": PackedInt32Array(1, 0, 0),
 "points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, -0.22199035, 0, 0, 0, 0, 0, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0, 0.7640272, 1.6)
+}
+tracks/12/type = "bezier"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("body/eyes:scale:y")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"handle_modes": PackedInt32Array(0, 2, 0, 2, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0.9, -0.061111115, 0, 0.20555556, 0, 0.9, -0.061111115, 0, 0.20555556, 0, 0.5, -0.050000004, -0.0075000026, 0.061111115, 0.009166669, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.36666667, 0.93333334, 1.2333333, 1.6)
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_amg7d"]
