@@ -1,0 +1,276 @@
+[gd_scene format=3 uid="uid://ba28e8c76o6ig"]
+
+[ext_resource type="Script" uid="uid://sydcesm8n887" path="res://scripts/player.gd" id="1_o5qli"]
+[ext_resource type="Script" uid="uid://de5tx63a8cilm" path="res://scripts/stem_emitter.gd" id="1_tipki"]
+[ext_resource type="AudioStream" uid="uid://bvy8ailud7t1c" path="res://songs/no-messing/drums.mp3" id="2_85g3d"]
+[ext_resource type="AudioStream" uid="uid://jc5meaocrnv6" path="res://songs/no-messing/bass.mp3" id="3_choun"]
+[ext_resource type="AudioStream" uid="uid://dfqxq33rltk4s" path="res://songs/no-messing/guitar.mp3" id="4_ya4ey"]
+[ext_resource type="AudioStream" uid="uid://bnvo775cni14k" path="res://songs/no-messing/piano.mp3" id="5_eb6dy"]
+[ext_resource type="AudioStream" uid="uid://bj7ko1e31tkiu" path="res://songs/no-messing/organ.mp3" id="6_trceg"]
+[ext_resource type="AudioStream" uid="uid://ckcmssie8h1dp" path="res://songs/no-messing/horns.mp3" id="7_a8y0u"]
+[ext_resource type="Script" uid="uid://d2vo7a04chmvv" path="res://scripts/audio_listener.gd" id="9_85g3d"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o5qli"]
+size = Vector2(1088, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0wfyh"]
+size = Vector2(1088, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sugp2"]
+size = Vector2(32, 576)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jyhfs"]
+size = Vector2(32, 576)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tbgi4"]
+size = Vector2(80, 80)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tefeu"]
+size = Vector2(112, 80)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tipki"]
+radius = 15.0
+
+[node name="Main" type="Node2D" unique_id=982088224]
+
+[node name="Background" type="ColorRect" parent="." unique_id=1479340043]
+offset_left = -2000.0
+offset_top = -2000.0
+offset_right = 2000.0
+offset_bottom = 2000.0
+color = Color(0.078431375, 0.08627451, 0.10980392, 1)
+
+[node name="Room" type="Node2D" parent="." unique_id=1837778209]
+
+[node name="Floor" type="ColorRect" parent="Room" unique_id=544603593]
+offset_left = -512.0
+offset_top = -288.0
+offset_right = 512.0
+offset_bottom = 288.0
+color = Color(0.14901961, 0.16470589, 0.2, 1)
+
+[node name="TopWall" type="StaticBody2D" parent="Room" unique_id=1538048902]
+position = Vector2(0, -304)
+
+[node name="Shape" type="CollisionShape2D" parent="Room/TopWall" unique_id=141723121]
+shape = SubResource("RectangleShape2D_o5qli")
+
+[node name="Visual" type="ColorRect" parent="Room/TopWall" unique_id=1002905517]
+offset_left = -544.0
+offset_top = -16.0
+offset_right = 544.0
+offset_bottom = 16.0
+color = Color(0.3529412, 0.39215687, 0.47058824, 1)
+
+[node name="BottomWall" type="StaticBody2D" parent="Room" unique_id=232984490]
+position = Vector2(0, 304)
+
+[node name="Shape" type="CollisionShape2D" parent="Room/BottomWall" unique_id=1109248793]
+shape = SubResource("RectangleShape2D_0wfyh")
+
+[node name="Visual" type="ColorRect" parent="Room/BottomWall" unique_id=370117421]
+offset_left = -544.0
+offset_top = -16.0
+offset_right = 544.0
+offset_bottom = 16.0
+color = Color(0.3529412, 0.39215687, 0.47058824, 1)
+
+[node name="LeftWall" type="StaticBody2D" parent="Room" unique_id=1633426231]
+position = Vector2(-528, 0)
+
+[node name="Shape" type="CollisionShape2D" parent="Room/LeftWall" unique_id=1966967631]
+shape = SubResource("RectangleShape2D_sugp2")
+
+[node name="Visual" type="ColorRect" parent="Room/LeftWall" unique_id=432790195]
+offset_left = -16.0
+offset_top = -288.0
+offset_right = 16.0
+offset_bottom = 288.0
+color = Color(0.3529412, 0.39215687, 0.47058824, 1)
+
+[node name="RightWall" type="StaticBody2D" parent="Room" unique_id=46663417]
+position = Vector2(528, 0)
+
+[node name="Shape" type="CollisionShape2D" parent="Room/RightWall" unique_id=1900831701]
+shape = SubResource("RectangleShape2D_jyhfs")
+
+[node name="Visual" type="ColorRect" parent="Room/RightWall" unique_id=1701781340]
+offset_left = -16.0
+offset_top = -288.0
+offset_right = 16.0
+offset_bottom = 288.0
+color = Color(0.3529412, 0.39215687, 0.47058824, 1)
+
+[node name="CrateA" type="StaticBody2D" parent="Room" unique_id=141837676]
+position = Vector2(260, -130)
+
+[node name="Shape" type="CollisionShape2D" parent="Room/CrateA" unique_id=404724512]
+shape = SubResource("RectangleShape2D_tbgi4")
+
+[node name="Visual" type="ColorRect" parent="Room/CrateA" unique_id=1357291537]
+offset_left = -40.0
+offset_top = -40.0
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0.5411765, 0.3529412, 0.23137255, 1)
+
+[node name="CrateB" type="StaticBody2D" parent="Room" unique_id=498670478]
+position = Vector2(-280, 160)
+
+[node name="Shape" type="CollisionShape2D" parent="Room/CrateB" unique_id=1682790874]
+shape = SubResource("RectangleShape2D_tefeu")
+
+[node name="Visual" type="ColorRect" parent="Room/CrateB" unique_id=1012051237]
+offset_left = -56.0
+offset_top = -40.0
+offset_right = 56.0
+offset_bottom = 40.0
+color = Color(0.5411765, 0.3529412, 0.23137255, 1)
+
+[node name="StemEmitters" type="Node2D" parent="." unique_id=1673718458]
+
+[node name="Drums" type="Node2D" parent="StemEmitters" unique_id=1947016303]
+position = Vector2(-400, -200)
+script = ExtResource("1_tipki")
+stem = ExtResource("2_85g3d")
+cube_color = Color(1, 0.3019608, 0.3019608, 1)
+
+[node name="Visual" type="ColorRect" parent="StemEmitters/Drums" unique_id=912153279]
+offset_left = -12.0
+offset_top = -12.0
+offset_right = 12.0
+offset_bottom = 12.0
+color = Color(1, 0.3019608, 0.3019608, 1)
+
+[node name="Audio" type="AudioStreamPlayer2D" parent="StemEmitters/Drums" unique_id=1106408378]
+stream = ExtResource("2_85g3d")
+volume_db = -80.0
+attenuation = 0.0
+panning_strength = 2.0
+
+[node name="Bass" type="Node2D" parent="StemEmitters" unique_id=630622704]
+position = Vector2(-400, 200)
+script = ExtResource("1_tipki")
+stem = ExtResource("3_choun")
+cube_color = Color(0.3019608, 0.49019608, 1, 1)
+
+[node name="Visual" type="ColorRect" parent="StemEmitters/Bass" unique_id=480711665]
+offset_left = -12.0
+offset_top = -12.0
+offset_right = 12.0
+offset_bottom = 12.0
+color = Color(0.3019608, 0.49019608, 1, 1)
+
+[node name="Audio" type="AudioStreamPlayer2D" parent="StemEmitters/Bass" unique_id=1184905083]
+stream = ExtResource("3_choun")
+volume_db = -80.0
+attenuation = 0.0
+panning_strength = 2.0
+
+[node name="Guitar" type="Node2D" parent="StemEmitters" unique_id=1184553743]
+position = Vector2(-100, -235)
+script = ExtResource("1_tipki")
+stem = ExtResource("4_ya4ey")
+cube_color = Color(1, 0.8235294, 0.3019608, 1)
+
+[node name="Visual" type="ColorRect" parent="StemEmitters/Guitar" unique_id=1571367958]
+offset_left = -12.0
+offset_top = -12.0
+offset_right = 12.0
+offset_bottom = 12.0
+color = Color(1, 0.8235294, 0.3019608, 1)
+
+[node name="Audio" type="AudioStreamPlayer2D" parent="StemEmitters/Guitar" unique_id=1067840707]
+stream = ExtResource("4_ya4ey")
+volume_db = -80.0
+attenuation = 0.0
+panning_strength = 2.0
+
+[node name="Piano" type="Node2D" parent="StemEmitters" unique_id=2145727911]
+position = Vector2(255, -210)
+script = ExtResource("1_tipki")
+stem = ExtResource("5_eb6dy")
+cube_color = Color(0.7019608, 0.4, 1, 1)
+
+[node name="Visual" type="ColorRect" parent="StemEmitters/Piano" unique_id=342994530]
+offset_left = -12.0
+offset_top = -12.0
+offset_right = 12.0
+offset_bottom = 12.0
+color = Color(0.7019608, 0.4, 1, 1)
+
+[node name="Audio" type="AudioStreamPlayer2D" parent="StemEmitters/Piano" unique_id=1847710918]
+stream = ExtResource("5_eb6dy")
+volume_db = -80.0
+attenuation = 0.0
+panning_strength = 2.0
+
+[node name="Organ" type="Node2D" parent="StemEmitters" unique_id=2024779320]
+position = Vector2(400, 200)
+script = ExtResource("1_tipki")
+stem = ExtResource("6_trceg")
+cube_color = Color(0.3019608, 1, 0.7019608, 1)
+
+[node name="Visual" type="ColorRect" parent="StemEmitters/Organ" unique_id=1301181612]
+offset_left = -12.0
+offset_top = -12.0
+offset_right = 12.0
+offset_bottom = 12.0
+color = Color(0.3019608, 1, 0.7019608, 1)
+
+[node name="Audio" type="AudioStreamPlayer2D" parent="StemEmitters/Organ" unique_id=440862368]
+stream = ExtResource("6_trceg")
+volume_db = -80.0
+attenuation = 0.0
+panning_strength = 2.0
+
+[node name="Horns" type="Node2D" parent="StemEmitters" unique_id=2059015043]
+position = Vector2(110, 235)
+script = ExtResource("1_tipki")
+stem = ExtResource("7_a8y0u")
+cube_color = Color(1, 0.6039216, 0.23921569, 1)
+
+[node name="Visual" type="ColorRect" parent="StemEmitters/Horns" unique_id=762350577]
+offset_left = -12.0
+offset_top = -12.0
+offset_right = 12.0
+offset_bottom = 12.0
+color = Color(1, 0.6039216, 0.23921569, 1)
+
+[node name="Audio" type="AudioStreamPlayer2D" parent="StemEmitters/Horns" unique_id=757996602]
+stream = ExtResource("7_a8y0u")
+volume_db = -80.0
+attenuation = 0.0
+panning_strength = 2.0
+
+[node name="Player" type="CharacterBody2D" parent="." unique_id=1040575097 groups=["player"]]
+position = Vector2(0, 150)
+script = ExtResource("1_o5qli")
+
+[node name="Visual" type="ColorRect" parent="Player" unique_id=2078497265]
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+color = Color(0.30588236, 0.6392157, 1, 1)
+
+[node name="Shape" type="CollisionShape2D" parent="Player" unique_id=1501853398]
+shape = SubResource("CircleShape2D_tipki")
+
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=1901961611]
+zoom = Vector2(2, 2)
+limit_left = -544
+limit_top = -322
+limit_right = 544
+limit_bottom = 322
+position_smoothing_enabled = true
+
+[node name="AudioListener" type="AudioListener2D" parent="Player" unique_id=17541707]
+script = ExtResource("9_85g3d")
+
+[node name="Camera" type="Camera2D" parent="." unique_id=1203382996]
+limit_left = -840
+limit_top = -640
+limit_right = 840
+limit_bottom = 640
+position_smoothing_speed = 8.0
