@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bvpbp5owrwnue"
-path="res://.godot/imported/coffee_grinder.png-609e54511bf448b19fa2ea1da205505c.ctex"
+uid="uid://djh3yg60ukklx"
+path="res://.godot/imported/coffee_machine.png-f50b38ca1a3a6ac94df2844468b76b73.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/coffee_grinder.png"
-dest_files=["res://.godot/imported/coffee_grinder.png-609e54511bf448b19fa2ea1da205505c.ctex"]
+source_file="res://assets/sprites/coffee_machine.png"
+dest_files=["res://.godot/imported/coffee_machine.png-f50b38ca1a3a6ac94df2844468b76b73.ctex"]
 
 [params]
 

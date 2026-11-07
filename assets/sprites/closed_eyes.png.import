@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b7g6k4sc8q5l0"
-path="res://.godot/imported/default_eyebrows.png-306d6ce1457f16ad3bf0f92ac2f880de.ctex"
+uid="uid://besf7i8rxy3i"
+path="res://.godot/imported/closed_eyes.png-543189b45263a9deba3c345b1cfd6768.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/default_eyebrows.png"
-dest_files=["res://.godot/imported/default_eyebrows.png-306d6ce1457f16ad3bf0f92ac2f880de.ctex"]
+source_file="res://assets/sprites/closed_eyes.png"
+dest_files=["res://.godot/imported/closed_eyes.png-543189b45263a9deba3c345b1cfd6768.ctex"]
 
 [params]
 

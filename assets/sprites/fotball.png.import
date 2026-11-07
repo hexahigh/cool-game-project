@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://mpfwxs44b5y1"
-path="res://.godot/imported/foot_left.png-c8ca798d68e16715d0632ec85036d48a.ctex"
+uid="uid://ca07of1coqrfw"
+path="res://.godot/imported/fotball.png-249bd1e3a96731a6b263e72b3585112a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/foot_left.png"
-dest_files=["res://.godot/imported/foot_left.png-c8ca798d68e16715d0632ec85036d48a.ctex"]
+source_file="res://assets/sprites/fotball.png"
+dest_files=["res://.godot/imported/fotball.png-249bd1e3a96731a6b263e72b3585112a.ctex"]
 
 [params]
 
