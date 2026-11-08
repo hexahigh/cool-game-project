@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://d2vo7a04chmvv" path="res://scripts/audio_listener.gd" id="9_85g3d"]
 [ext_resource type="Script" uid="uid://ce3sg2o3j6tu4" path="res://scripts/stem_interaction.gd" id="10_choun"]
 [ext_resource type="Script" uid="uid://d05fhnv6sl6dq" path="res://scripts/floor.gd" id="11_floor"]
+[ext_resource type="PackedScene" uid="uid://ct0huu5epr5jv" path="res://entities/player.tscn" id="12_player"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o5qli"]
 size = Vector2(1088, 32)
@@ -148,13 +149,9 @@ position = Vector2(0, 150)
 collision_layer = 2
 script = ExtResource("1_o5qli")
 
-[node name="Visual" type="ColorRect" parent="Player" unique_id=2078497265]
-offset_left = -16.0
-offset_top = -16.0
-offset_right = 16.0
-offset_bottom = 16.0
-mouse_filter = 2
-color = Color(0.30588236, 0.6392157, 1, 1)
+[node name="Visual" type="Node2D" parent="Player" unique_id=2078497265]
+
+[node name="Entity" parent="Player/Visual" unique_id=2078497266 instance=ExtResource("12_player")]
 
 [node name="Shape" type="CollisionShape2D" parent="Player" unique_id=1501853398]
 shape = SubResource("CircleShape2D_tipki")
