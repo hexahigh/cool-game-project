@@ -33,12 +33,10 @@ const BANDS := [
 ]
 
 const BODY_PATHS := [
-	"res://assets/sprites/bodies/coffee_machine.png",
 	"res://assets/sprites/bodies/fotball.png",
 	"res://assets/sprites/bodies/green_pepper.png",
 	"res://assets/sprites/bodies/lemon.png",
 	"res://assets/sprites/bodies/red_pepper.png",
-	"res://assets/sprites/bodies/teddie.png",
 	"res://assets/sprites/bodies/yellow_pepper.png",
 ]
 const ACCESSORY_PATHS := [
