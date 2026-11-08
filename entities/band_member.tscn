@@ -1306,7 +1306,6 @@ position = Vector2(177.7778, -111.1112)
 
 [node name="eyes" type="Sprite2D" parent="body" unique_id=740870741]
 position = Vector2(244.44446, -333.33337)
-scale = Vector2(1e-05, 1e-05)
 texture = ExtResource("3_amg7d")
 
 [node name="accessory" type="Sprite2D" parent="body" unique_id=644283547]
