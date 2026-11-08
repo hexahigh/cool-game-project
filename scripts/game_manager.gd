@@ -49,6 +49,17 @@ const BANDS := [
 			{"instrument": "Melody", "paths": ["res://songs/enlightenment/mono/melody.ogg"]},
 			{"instrument": "Instruments", "paths": ["res://songs/enlightenment/mono/instruments.ogg"]},
 		],
+	},
+	{
+		"id": "orangji_jusu",
+		"name": "Oranji Jyuusu",
+		"genre": "J-rock",
+		"stems": [
+			{"instrument": "Drums", "paths": ["res://songs/samurai-punk/mono/drums.ogg"]},
+			{"instrument": "Bass", "paths": ["res://songs/samurai-punk/mono/bass.ogg"]},
+			{"instrument": "Melody", "paths": ["res://songs/samurai-punk/mono/melody.ogg"]},
+			{"instrument": "Instruments", "paths": ["res://songs/samurai-punk/mono/instruments.ogg"]},
+		]
 	}
 ]
 
