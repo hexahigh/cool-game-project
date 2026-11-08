@@ -52,8 +52,8 @@ func _build() -> void:
 
 	_intro = _build_overlay(
 		"Intro",
-		"Fyttikatta Wallahiiii",
-		"Yoooo, lever alle de riktige medlemmene i bandet broderrr",
+		"Instruksjoner",
+		"Finn og lever alle de riktige medlemmene i bandet før de skal opp på scenen!",
 		"Start",
 		true
 	)
