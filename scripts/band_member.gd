@@ -416,6 +416,6 @@ func _update_animation() -> void:
 		_anim.play(wanted)
 
 	if _mouth_anim != null:
-		var mouth_wanted := "singing" if _on_stage else "idle"
+		var mouth_wanted := "singing_2" if _on_stage else "idle"
 		if _mouth_anim.current_animation != mouth_wanted:
 			_mouth_anim.play(mouth_wanted)
