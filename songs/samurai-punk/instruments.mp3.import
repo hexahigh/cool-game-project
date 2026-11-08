@@ -12,7 +12,7 @@ dest_files=["res://.godot/imported/instruments.mp3-5f074c31f1f6d4044d7d3e5a1c4f0
 
 [params]
 
-loop=false
+loop=true
 loop_offset=0
 bpm=0
 beat_count=0

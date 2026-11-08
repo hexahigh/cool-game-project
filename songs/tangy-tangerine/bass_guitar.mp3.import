@@ -12,7 +12,7 @@ dest_files=["res://.godot/imported/bass_guitar.mp3-59e2d8656fb5b33c7c002ac8d0e88
 
 [params]
 
-loop=false
+loop=true
 loop_offset=0
 bpm=0
 beat_count=0

@@ -12,7 +12,7 @@ dest_files=["res://.godot/imported/melody.mp3-53b8d97e967e3c87edec5ab7fca3a38f.m
 
 [params]
 
-loop=false
+loop=true
 loop_offset=0
 bpm=0
 beat_count=0

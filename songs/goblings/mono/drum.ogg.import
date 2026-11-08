@@ -12,7 +12,7 @@ dest_files=["res://.godot/imported/drum.ogg-3ab3417b8d13aaca70aa2eeee9fa6695.ogg
 
 [params]
 
-loop=false
+loop=true
 loop_offset=0
 bpm=0
 beat_count=0

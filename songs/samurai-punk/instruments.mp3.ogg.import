@@ -12,7 +12,7 @@ dest_files=["res://.godot/imported/instruments.mp3.ogg-30428aaf5901493455158f532
 
 [params]
 
-loop=false
+loop=true
 loop_offset=0
 bpm=0
 beat_count=0

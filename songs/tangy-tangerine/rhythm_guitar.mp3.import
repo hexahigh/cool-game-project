@@ -12,7 +12,7 @@ dest_files=["res://.godot/imported/rhythm_guitar.mp3-13c90d8e612d7ef7449bba9782a
 
 [params]
 
-loop=false
+loop=true
 loop_offset=0
 bpm=0
 beat_count=0

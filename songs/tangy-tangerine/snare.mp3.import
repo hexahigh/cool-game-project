@@ -12,7 +12,7 @@ dest_files=["res://.godot/imported/snare.mp3-8e16cc1d4fa382ade72ef402ce72664f.mp
 
 [params]
 
-loop=false
+loop=true
 loop_offset=0
 bpm=0
 beat_count=0
