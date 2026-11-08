@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://daly6hrxmw0vj" path="res://assets/sprites/eyes/default_eyes.png" id="3_amg7d"]
 [ext_resource type="PackedScene" uid="uid://2nabyqot1lvh" path="res://entities/mouth.tscn" id="3_udyt4"]
 [ext_resource type="Texture2D" uid="uid://ulbx78pgonep" path="res://assets/sprites/accessories/top_hat.png" id="4_jhqwb"]
+[ext_resource type="Texture2D" uid="uid://b4j62ob1ayf6g" path="res://assets/sprites/hands/brown_hand.png" id="6_udyt4"]
 
 [sub_resource type="Animation" id="Animation_amg7d"]
 length = 0.001
@@ -1287,12 +1288,18 @@ _data = {
 }
 
 [node name="BandMember" type="Node2D" unique_id=1355637323]
+scale = Vector2(1e-05, 1e-05)
 
 [node name="right_foot" type="Sprite2D" parent="." unique_id=1324611511]
 position = Vector2(2.9999995, -3.0000002)
 scale = Vector2(0.038125005, 0.040078126)
 texture = ExtResource("1_ixuau")
 offset = Vector2(183.60652, 49.902527)
+
+[node name="right_hand" type="Sprite2D" parent="." unique_id=1342729817]
+position = Vector2(16, -16)
+scale = Vector2(0.020812498, 0.018859377)
+texture = ExtResource("6_udyt4")
 
 [node name="body" type="Sprite2D" parent="." unique_id=887108495]
 position = Vector2(-8.000001, -13.999996)
@@ -1305,6 +1312,7 @@ position = Vector2(177.7778, -111.1112)
 
 [node name="eyes" type="Sprite2D" parent="body" unique_id=740870741]
 position = Vector2(244.44446, -333.33337)
+scale = Vector2(1e-05, 1e-05)
 texture = ExtResource("3_amg7d")
 
 [node name="accessory" type="Sprite2D" parent="body" unique_id=644283547]
@@ -1321,3 +1329,8 @@ offset = Vector2(-174.65886, 21.76869)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=787537812]
 libraries/ = SubResource("AnimationLibrary_amg7d")
+
+[node name="left_hand" type="Sprite2D" parent="." unique_id=1952351938]
+position = Vector2(-22, -17.000002)
+scale = Vector2(0.021, 0.021)
+texture = ExtResource("6_udyt4")
