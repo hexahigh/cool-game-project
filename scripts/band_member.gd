@@ -6,7 +6,12 @@ const MOUTH_SCENE := preload("res://entities/mouth.tscn")
 ## clicked, parks in the collection area, leaves for the stage, and flips when
 ## it moves horizontally under its own power (never from being pushed).
 
-enum State { IDLE, FOLLOWING, PARKED, EJECTING, TO_STAGE, ON_STAGE }
+## Isolation low-pass: open when this member is the one being listened to,
+## slightly filtered when it is ducked behind the isolated member.
+const ISOLATION_OPEN_HZ := 20500.0
+const ISOLATION_DUCKED_HZ := 2500.0
+
+enum State {IDLE, FOLLOWING, PARKED, EJECTING, TO_STAGE, ON_STAGE}
 
 @export var follow_speed: float = 320.0
 @export var follow_stiffness: float = 6.0
@@ -16,7 +21,7 @@ enum State { IDLE, FOLLOWING, PARKED, EJECTING, TO_STAGE, ON_STAGE }
 @export var separation_radius: float = 64.0
 @export var separation_strength: float = 1000.0
 @export var hearing_radius: float = 460.0
-@export var stage_volume_db: float = -14.0
+@export var stage_volume_db: float = -8.0
 ## How quickly isolation ducking fades in/out.
 @export var isolation_smoothing: float = 10.0
 ## Minimum interval between left/right flips.
@@ -45,6 +50,13 @@ var _has_target := false
 var _mix_gain := 1.0
 var _isolation_gain := 1.0
 var _isolation_target := 1.0
+var _isolation_bus := ""
+var _isolation_bus_index := -1
+## 0 while performing in the room, 1 once fully settled into the stage mix.
+var _stage_blend := 0.0
+var _stage_blend_speed := 0.0
+var _stage_transitioning := false
+var _stage_start_volume := 0.0
 var _on_stage := false
 var _facing := 1
 var _last_flip_time := -100.0
@@ -57,7 +69,7 @@ func _ready() -> void:
 	_player = get_tree().get_first_node_in_group("player")
 	_audios = [_audio]
 	_audio.attenuation = 0.0
-	_audio.panning_strength = 2.0
+	_audio.panning_strength = 10.0
 	_anim.play("idle")
 
 	# Mouth is a separate animated scene; attach it to the face.
@@ -83,6 +95,8 @@ func configure(data: Dictionary) -> void:
 	instrument = data.instrument
 	look_name = data.look_name
 	state = State.IDLE
+	_isolation_bus = data.get("isolation_bus", "")
+	_isolation_bus_index = AudioServer.get_bus_index(_isolation_bus)
 
 	_body.texture = data.body
 	_eyes.texture = data.eyes
@@ -111,8 +125,11 @@ func configure(data: Dictionary) -> void:
 		player.stream = streams[i]
 		player.volume_db = -80.0
 		player.attenuation = 0.0
-		player.panning_strength = 2.0
-		player.bus = "Master"
+		player.panning_strength = 3.0
+		if _isolation_bus_index != -1:
+			player.bus = _isolation_bus
+		else:
+			player.bus = data.get("stage_bus", "Master")
 
 	_anim.play("idle")
 
@@ -164,11 +181,20 @@ func eject(exit_position: Vector2) -> void:
 	_has_target = true
 
 
-## Leave the collection area for the stage.
-func go_to_stage(stage_position: Vector2) -> void:
+## Leave the collection area for the stage. The stage mix (volume + muffling)
+## eases in over `transition_seconds` instead of snapping on arrival.
+func go_to_stage(stage_position: Vector2, transition_seconds: float = 0.0) -> void:
 	state = State.TO_STAGE
 	_target_position = stage_position
 	_has_target = true
+	_stage_start_volume = _live_volume()
+	if transition_seconds > 0.0:
+		_stage_transitioning = true
+		_stage_blend_speed = 1.0 / transition_seconds
+	else:
+		_stage_transitioning = false
+		_stage_blend_speed = 0.0
+		_stage_blend = 1.0
 
 
 func set_mix_gain(gain: float) -> void:
@@ -211,6 +237,9 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 	_isolation_gain = lerpf(_isolation_gain, _isolation_target, 1.0 - exp(-isolation_smoothing * delta))
+	if _stage_blend < 1.0:
+		_stage_blend = minf(_stage_blend + _stage_blend_speed * delta, 1.0)
+	_update_isolation_filter()
 	_update_volume()
 	_update_facing()
 	_update_animation()
@@ -239,8 +268,6 @@ func _on_reached_target() -> void:
 			velocity = Vector2.ZERO
 			_on_stage = true
 			state = State.ON_STAGE
-			for player in _audios:
-				player.bus = "Muffled"
 
 
 func _separation_velocity() -> Vector2:
@@ -265,20 +292,43 @@ func _separation_velocity() -> Vector2:
 	return push * separation_strength
 
 
+func _update_isolation_filter() -> void:
+	if _isolation_bus_index == -1 or AudioServer.get_bus_effect_count(_isolation_bus_index) == 0:
+		return
+
+	var filter := AudioServer.get_bus_effect(_isolation_bus_index, 0) as AudioEffectLowPassFilter
+	if filter == null:
+		return
+
+	# 0 = fully audible, 1 = fully ducked behind the isolated member.
+	var amount := clampf(1.0 - _isolation_gain, 0.0, 1.0)
+	filter.cutoff_hz = ISOLATION_OPEN_HZ * pow(ISOLATION_DUCKED_HZ / ISOLATION_OPEN_HZ, amount)
+
+
 func _update_volume() -> void:
-	var volume: float
-	if _on_stage:
-		volume = stage_volume_db + linear_to_db(maxf(_isolation_gain, 0.0001))
-	else:
-		var distance := global_position.distance_to(_player.global_position)
-		var closeness := clampf(1.0 - distance / hearing_radius, 0.0, 1.0)
-		var proximity_db := linear_to_db(maxf(closeness * closeness, 0.0001))
-		var mix_db := linear_to_db(maxf(_mix_gain, 0.0001))
-		var isolation_db := linear_to_db(maxf(_isolation_gain, 0.0001))
-		volume = clampf(proximity_db + mix_db + isolation_db, -80.0, 6.0)
+	var isolation_db := linear_to_db(maxf(_isolation_gain, 0.0001))
+	var stage_volume := stage_volume_db + isolation_db
+	var blend := smoothstep(0.0, 1.0, _stage_blend)
+
+	# Crossfade from the room mix heard when the band set off into the muffled
+	# stage mix, so neither the volume change nor the filtering snaps in.
+	var start_volume := _stage_start_volume if _stage_transitioning else _live_volume()
+	var volume := lerpf(start_volume, stage_volume, blend)
 
 	for player in _audios:
 		player.volume_db = volume
+
+
+func _live_volume() -> float:
+	if _player == null:
+		return stage_volume_db
+
+	var distance := global_position.distance_to(_player.global_position)
+	var closeness := clampf(1.0 - distance / hearing_radius, 0.0, 1.0)
+	var proximity_db := linear_to_db(maxf(closeness * closeness, 0.0001))
+	var mix_db := linear_to_db(maxf(_mix_gain, 0.0001))
+	var isolation_db := linear_to_db(maxf(_isolation_gain, 0.0001))
+	return clampf(proximity_db + mix_db + isolation_db, -80.0, 6.0)
 
 
 func _update_facing() -> void:

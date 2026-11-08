@@ -67,9 +67,19 @@ enum State {INTRO, PLAYING, FOCUS, TRANSITION, GAME_OVER, VICTORY}
 @export var round_seconds: float = 300.0
 @export var focus_seconds: float = 4.0
 @export var walk_seconds: float = 1.6
+## How long the stage volume drop and low-pass sweep take while a band walks on.
+@export var stage_audio_fade_seconds: float = 1.6
 @export var min_character_distance: float = 130.0
 @export var isolate_radius: float = 45.0
 @export var duck_gain: float = 0.22
+
+## Low-pass cutoff when a band is fully part of the muffled stage background.
+const MUFFLE_CLOSED_HZ := 900.0
+## Cutoff that leaves a band's stage bus effectively unfiltered while it plays
+## in the room.
+const MUFFLE_OPEN_HZ := 20500.0
+const MUFFLE_BUS_PREFIX := "Muffled_"
+const ISOLATION_BUS_PREFIX := "Isolated_"
 
 var state: int = State.INTRO
 
@@ -98,7 +108,7 @@ func _ready() -> void:
 	_stage = get_parent().get_node("Stage")
 	_characters_root = get_parent().get_node("Characters")
 
-	_ensure_muffled_bus()
+	_ensure_muffle_buses()
 	_hud.start_pressed.connect(_on_start)
 	_hud.restart_pressed.connect(_on_restart)
 	_area.band_complete.connect(_on_band_complete)
@@ -146,19 +156,78 @@ func _update_isolation() -> void:
 			character.set_isolation_gain(1.0 if character == nearest else duck_gain)
 
 
-func _ensure_muffled_bus() -> void:
-	if AudioServer.get_bus_index("Muffled") != -1:
-		return
+func _ensure_muffle_buses() -> void:
+	# One bus per band lets a band fade into the stage treatment while the
+	# previous band is still sitting there fully muffled.
+	for band in BANDS:
+		var stage_bus := _muffle_bus_name(band.id)
+		_ensure_low_pass_bus(stage_bus, "Master", MUFFLE_OPEN_HZ, 0.6)
+
+		# Each member then gets its own bus feeding the band bus, so the
+		# isolation filter can duck individual stems independently.
+		for stem in band.stems:
+			_ensure_low_pass_bus(
+				_isolation_bus_name(band.id, stem.instrument),
+				stage_bus,
+				MUFFLE_OPEN_HZ,
+				0.5
+			)
+
+
+func _ensure_low_pass_bus(bus_name: String, send: String, cutoff_hz: float, resonance: float) -> int:
+	var index := AudioServer.get_bus_index(bus_name)
+	if index != -1:
+		# Scene reloads keep the AudioServer: reopen a bus left filtered by a
+		# previous run.
+		var existing := AudioServer.get_bus_effect(index, 0) as AudioEffectLowPassFilter
+		if existing == null:
+			existing = AudioEffectLowPassFilter.new()
+			existing.resonance = resonance
+			AudioServer.add_bus_effect(index, existing)
+		existing.cutoff_hz = cutoff_hz
+		return index
 
 	AudioServer.add_bus()
-	var index := AudioServer.bus_count - 1
-	AudioServer.set_bus_name(index, "Muffled")
-	AudioServer.set_bus_send(index, "Master")
+	index = AudioServer.bus_count - 1
+	AudioServer.set_bus_name(index, bus_name)
+	AudioServer.set_bus_send(index, send)
 
 	var filter := AudioEffectLowPassFilter.new()
-	filter.cutoff_hz = 900.0
-	filter.resonance = 0.6
+	filter.cutoff_hz = cutoff_hz
+	filter.resonance = resonance
 	AudioServer.add_bus_effect(index, filter)
+	return index
+
+
+func _muffle_bus_name(band_id: String) -> String:
+	return MUFFLE_BUS_PREFIX + band_id
+
+
+func _isolation_bus_name(band_id: String, instrument: String) -> String:
+	return "%s%s_%s" % [ISOLATION_BUS_PREFIX, band_id, instrument.to_lower()]
+
+
+func _fade_band_onto_stage(band_id: String, duration: float) -> void:
+	var index := AudioServer.get_bus_index(_muffle_bus_name(band_id))
+	if index == -1:
+		return
+
+	var tween := create_tween()
+	tween.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_method(_apply_muffle.bind(index), 0.0, 1.0, maxf(duration, 0.01))
+
+
+func _apply_muffle(amount: float, index: int) -> void:
+	_set_muffle_amount(index, amount)
+
+
+## `amount` 0 keeps the bus open, 1 applies the full stage low-pass.
+func _set_muffle_amount(index: int, amount: float) -> void:
+	if AudioServer.get_bus_effect_count(index) == 0:
+		return
+	var filter := AudioServer.get_bus_effect(index, 0) as AudioEffectLowPassFilter
+	if filter != null:
+		filter.cutoff_hz = MUFFLE_OPEN_HZ * pow(MUFFLE_CLOSED_HZ / MUFFLE_OPEN_HZ, amount)
 
 
 func _build_roster() -> void:
@@ -202,6 +271,8 @@ func _build_roster() -> void:
 			"eyes": eyes,
 			"foot": foot,
 			"stems": streams,
+			"stage_bus": _muffle_bus_name(slot.band_id),
+			"isolation_bus": _isolation_bus_name(slot.band_id, slot.instrument),
 		})
 		_characters.append(member)
 
@@ -333,8 +404,9 @@ func _send_band_to_stage() -> void:
 			members.append(character)
 
 	var new_row := 0 if _stage_band_members.is_empty() else 1 - _stage_row
+	_fade_band_onto_stage(_active_band.id, stage_audio_fade_seconds)
 	for i in members.size():
-		members[i].go_to_stage(_stage.get_slot(i, members.size(), new_row))
+		members[i].go_to_stage(_stage.get_slot(i, members.size(), new_row), stage_audio_fade_seconds)
 
 	await get_tree().create_timer(walk_seconds).timeout
 
