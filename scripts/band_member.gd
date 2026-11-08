@@ -353,7 +353,8 @@ func _update_animation() -> void:
 	var moving := _self_velocity.length() > 12.0
 	var wanted := "idle"
 	if _on_stage:
-		wanted = "dancing_1"
+		var stage_anims := ["dancing_1", "dancing_2", "backflip"]
+		wanted = stage_anims.pick_random()
 	elif moving:
 		wanted = "walking"
 	if _anim.current_animation != wanted:
