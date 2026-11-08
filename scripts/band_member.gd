@@ -10,6 +10,9 @@ const MOUTH_SCENE := preload("res://entities/mouth.tscn")
 ## slightly filtered when it is ducked behind the isolated member.
 const ISOLATION_OPEN_HZ := 20500.0
 const ISOLATION_DUCKED_HZ := 2500.0
+const STAGE_ANIMATIONS := ["dancing_1", "dancing_2", "backflip"]
+const STAGE_ANIMATION_WEIGHTS := [0.4, 0.4, 0.2] # relative chance of each stage dance
+const IDLE_ANIMATION_WEIGHTS := [0.45, 0.45, 0.1] # relative chance of each idle dance
 
 enum State {IDLE, FOLLOWING, PARKED, EJECTING, TO_STAGE, ON_STAGE}
 
@@ -27,6 +30,9 @@ enum State {IDLE, FOLLOWING, PARKED, EJECTING, TO_STAGE, ON_STAGE}
 ## Minimum interval between left/right flips.
 @export var flip_rate_limit: float = 0.18
 @export var flip_deadzone: float = 20.0
+## Random delay range between idle dances for a member standing in the room.
+@export var idle_dance_min_delay: float = 4.0
+@export var idle_dance_max_delay: float = 10.0
 
 var band_id := ""
 var band_name := ""
@@ -57,6 +63,10 @@ var _stage_blend := 0.0
 var _stage_blend_speed := 0.0
 var _stage_transitioning := false
 var _stage_start_volume := 0.0
+var _stage_anim := ""
+var _idle_dance_anim := ""
+var _idle_dance_time_left := 0.0
+var _idle_dance_delay := 0.0
 var _on_stage := false
 var _facing := 1
 var _last_flip_time := -100.0
@@ -71,6 +81,7 @@ func _ready() -> void:
 	_audio.attenuation = 0.0
 	_audio.panning_strength = 10.0
 	_anim.play("idle")
+	_idle_dance_delay = randf_range(idle_dance_min_delay, idle_dance_max_delay)
 
 	# Mouth is a separate animated scene; attach it to the face.
 	var mouth := MOUTH_SCENE.instantiate()
@@ -242,6 +253,7 @@ func _physics_process(delta: float) -> void:
 	_update_isolation_filter()
 	_update_volume()
 	_update_facing()
+	_update_idle_dance(delta)
 	_update_animation()
 
 
@@ -349,18 +361,61 @@ func _update_facing() -> void:
 	_visual.scale.x = float(_facing)
 
 
+## Occasionally break the idle pose with a short dance while waiting in the room.
+func _update_idle_dance(delta: float) -> void:
+	if state != State.IDLE:
+		_cancel_idle_dance()
+		return
+
+	if _idle_dance_time_left > 0.0:
+		_idle_dance_time_left -= delta
+		if _idle_dance_time_left <= 0.0:
+			_cancel_idle_dance()
+		return
+
+	_idle_dance_delay -= delta
+	if _idle_dance_delay > 0.0:
+		return
+
+	var rng = RandomNumberGenerator.new()
+	rng.Randomize()
+
+	_idle_dance_anim = STAGE_ANIMATIONS[rng.rand_weighted(weights)]
+	var animation := _anim.get_animation(_idle_dance_anim)
+	_idle_dance_time_left = animation.length if animation != null else 1.0
+
+
+func _cancel_idle_dance() -> void:
+	if _idle_dance_anim.is_empty():
+		return
+
+	_idle_dance_anim = ""
+	_idle_dance_time_left = 0.0
+	_idle_dance_delay = randf_range(idle_dance_min_delay, idle_dance_max_delay)
+
+	# Idle and walking don't animate the visual root, so clear anything the
+	# dance left behind before those clips take over.
+	_visual.position = Vector2.ZERO
+	_visual.rotation = 0.0
+	_visual.scale = Vector2(float(_facing), 1.0)
+
+
 func _update_animation() -> void:
 	var moving := _self_velocity.length() > 12.0
 	var wanted := "idle"
 	if _on_stage:
-		var stage_anims := ["dancing_1", "dancing_2", "backflip"]
-		wanted = stage_anims.pick_random()
+		# Pick once so the dance does not change on every physics frame.
+		if _stage_anim.is_empty():
+			_stage_anim = STAGE_ANIMATIONS.pick_random()
+		wanted = _stage_anim
+	elif not _idle_dance_anim.is_empty():
+		wanted = _idle_dance_anim
 	elif moving:
 		wanted = "walking"
 	if _anim.current_animation != wanted:
 		_anim.play(wanted)
 
 	if _mouth_anim != null:
-		var mouth_wanted := "singing" if _on_stage else "idle"
+		var mouth_wanted := "singing_2" if _on_stage else "idle"
 		if _mouth_anim.current_animation != mouth_wanted:
 			_mouth_anim.play(mouth_wanted)
