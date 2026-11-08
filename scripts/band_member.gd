@@ -42,6 +42,8 @@ var state: int = State.IDLE
 @onready var _visual: Node2D = $Visual
 @onready var _body: Sprite2D = $Visual/body
 @onready var _eyes: Sprite2D = $Visual/body/eyes
+@onready var _right_foot: Sprite2D = $Visual/right_foot
+@onready var _left_foot: Sprite2D = $Visual/left_foot
 @onready var _accessory: Sprite2D = $Visual/body/accessory
 @onready var _anim: AnimationPlayer = $Visual/AnimationPlayer
 @onready var _audio: AudioStreamPlayer2D = $Audio
@@ -106,6 +108,8 @@ func configure(data: Dictionary) -> void:
 
 	_body.texture = data.body
 	_eyes.texture = data.eyes
+	_right_foot.texture = data.feet
+	_left_foot.texture = data.feet
 	if data.accessory != null:
 		_accessory.texture = data.accessory
 		_accessory.visible = true

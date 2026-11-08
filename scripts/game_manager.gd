@@ -57,10 +57,15 @@ const ACCESSORY_PATHS := [
 	"res://assets/sprites/accessories/sunshine_and_rainbows.png",
 ]
 const EYE_PATHS := [
-	"res://assets/sprites/eyes/closed_eyes.png",
 	"res://assets/sprites/eyes/default_eyes.png",
 ]
-const FOOT_PATH := "res://assets/sprites/foot.png"
+const FEET_PATHS := [
+	"res://assets/sprites/feet/blue_foot.png",
+	"res://assets/sprites/feet/brown_foot.png",
+	"res://assets/sprites/feet/green_foot.png",
+	"res://assets/sprites/feet/pink_foot.png",
+	"res://assets/sprites/feet/yellow_foot.png",
+]
 
 enum State {INTRO, PLAYING, FOCUS, TRANSITION, GAME_OVER, VICTORY}
 
@@ -249,11 +254,11 @@ func _build_roster() -> void:
 	if combos.size() < slots.size():
 		push_warning("Not enough unique looks (%d) for %d characters." % [combos.size(), slots.size()])
 
-	var foot: Texture2D = load(FOOT_PATH)
 	for i in slots.size():
 		var slot: Dictionary = slots[i]
 		var combo: Dictionary = combos[i % combos.size()]
 		var eyes: Texture2D = load(EYE_PATHS[randi() % EYE_PATHS.size()])
+		var feet: Texture2D = load(FEET_PATHS[randi() % FEET_PATHS.size()])
 		var streams: Array = []
 		for path in slot.stem_paths:
 			streams.append(load(path))
@@ -269,7 +274,7 @@ func _build_roster() -> void:
 			"body": combo.body,
 			"accessory": combo.accessory,
 			"eyes": eyes,
-			"foot": foot,
+			"feet": feet,
 			"stems": streams,
 			"stage_bus": _muffle_bus_name(slot.band_id),
 			"isolation_bus": _isolation_bus_name(slot.band_id, slot.instrument),

@@ -1287,7 +1287,6 @@ _data = {
 }
 
 [node name="BandMember" type="Node2D" unique_id=1355637323]
-scale = Vector2(1e-05, 1e-05)
 
 [node name="right_foot" type="Sprite2D" parent="." unique_id=1324611511]
 position = Vector2(2.9999995, -3.0000002)
@@ -1306,7 +1305,6 @@ position = Vector2(177.7778, -111.1112)
 
 [node name="eyes" type="Sprite2D" parent="body" unique_id=740870741]
 position = Vector2(244.44446, -333.33337)
-scale = Vector2(1e-05, 1e-05)
 texture = ExtResource("3_amg7d")
 
 [node name="accessory" type="Sprite2D" parent="body" unique_id=644283547]
