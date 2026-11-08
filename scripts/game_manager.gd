@@ -309,6 +309,7 @@ func _build_roster() -> void:
 		var combo: Dictionary = combos[i % combos.size()]
 		var eyes: Texture2D = load(EYE_PATHS[randi() % EYE_PATHS.size()])
 		var feet: Texture2D = load(FEET_PATHS[randi() % FEET_PATHS.size()])
+		var hands: Texture2D = load((feet.resource_path.replace("feet", "hands")).replace("foot", "hand"))
 		var streams: Array = []
 		for path in slot.stem_paths:
 			streams.append(load(path))
@@ -325,6 +326,7 @@ func _build_roster() -> void:
 			"accessory": combo.accessory,
 			"eyes": eyes,
 			"feet": feet,
+			"hands": hands,
 			"stems": streams,
 			"stage_bus": _muffle_bus_name(slot.band_id),
 			"isolation_bus": _isolation_bus_name(slot.band_id, slot.instrument),
