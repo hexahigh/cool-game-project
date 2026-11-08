@@ -378,7 +378,7 @@ func _update_idle_dance(delta: float) -> void:
 		return
 
 	var rng = RandomNumberGenerator.new()
-	rng.Randomize()
+	rng.randomize()
 
 	_idle_dance_anim = STAGE_ANIMATIONS[rng.rand_weighted(IDLE_ANIMATION_WEIGHTS)]
 	var animation := _anim.get_animation(_idle_dance_anim)
