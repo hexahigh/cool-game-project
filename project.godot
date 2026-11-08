@@ -11,13 +11,14 @@ config_version=5
 [application]
 
 config/name="Cool Game Project"
-run/main_scene="res://scenes/main.tscn"
+run/main_scene="res://scenes/main_menu.tscn"
 config/features=PackedStringArray("4.7", "Mobile")
 config/icon="res://icon.svg"
 
 [autoload]
 
 _mcp_game_helper="*res://addons/godot_ai/runtime/game_helper.gd"
+AudioManager="*res://scripts/audio_manager.gd"
 
 [display]
 

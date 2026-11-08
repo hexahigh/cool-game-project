@@ -54,6 +54,7 @@ var _player: Node2D
 var _target_position := Vector2.ZERO
 var _has_target := false
 var _mix_gain := 1.0
+var _start_fade := 1.0
 var _isolation_gain := 1.0
 var _isolation_target := 1.0
 var _isolation_bus := ""
@@ -115,6 +116,10 @@ func configure(data: Dictionary) -> void:
 		_accessory.visible = true
 	else:
 		_accessory.visible = false
+
+	# The visual starts scaled to nothing so unconfigured members never flash;
+	# reveal it now so every member appears at the same time.
+	_visual.scale = Vector2(float(_facing), 1.0)
 
 	# One character can play several stems (e.g. kick + snare).
 	for i in range(1, _audios.size()):
@@ -209,6 +214,12 @@ func go_to_stage(stage_position: Vector2, transition_seconds: float = 0.0) -> vo
 
 func set_mix_gain(gain: float) -> void:
 	_mix_gain = gain
+
+
+## 0 = silent, 1 = full mix. Used to fade the band in when the game starts.
+func set_start_fade(gain: float) -> void:
+	_start_fade = clampf(gain, 0.0, 1.0)
+	_update_volume()
 
 
 func set_isolation_gain(gain: float) -> void:
@@ -324,7 +335,8 @@ func _update_volume() -> void:
 	# Crossfade from the room mix heard when the band set off into the muffled
 	# stage mix, so neither the volume change nor the filtering snaps in.
 	var start_volume := _stage_start_volume if _stage_transitioning else _live_volume()
-	var volume := lerpf(start_volume, stage_volume, blend)
+	var fade_db := linear_to_db(maxf(_start_fade, 0.0001))
+	var volume := clampf(lerpf(start_volume, stage_volume, blend) + fade_db, -80.0, 6.0)
 
 	for player in _audios:
 		player.volume_db = volume
