@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://ct0huu5epr5jv"]
+
+[ext_resource type="Texture2D" uid="uid://dcfpd0wtkgyra" path="res://assets/sprites/player/player_foot.png" id="1_b0kkn"]
+[ext_resource type="Texture2D" uid="uid://dnqgvlqtvrvcs" path="res://assets/sprites/player/player.png" id="2_e4p34"]
+
+[node name="Player" type="Node2D" unique_id=1063618575]
+
+[node name="right_foot" type="Sprite2D" parent="." unique_id=1925182455]
+position = Vector2(-16.000002, -10)
+scale = Vector2(0.045624997, 0.049531247)
+texture = ExtResource("1_b0kkn")
+
+[node name="body" type="Sprite2D" parent="." unique_id=504468412]
+position = Vector2(-3, -27)
+scale = Vector2(0.075, 0.075)
+texture = ExtResource("2_e4p34")
+
+[node name="left_foot" type="Sprite2D" parent="." unique_id=1552084703]
+position = Vector2(-5.0000005, -4.0000005)
+scale = Vector2(0.045624997, 0.049531247)
+texture = ExtResource("1_b0kkn")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1622914160]
