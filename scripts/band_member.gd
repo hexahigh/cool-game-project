@@ -183,6 +183,8 @@ func toggle_follow() -> void:
 	if not is_collectible():
 		return
 	state = State.FOLLOWING if state == State.IDLE else State.IDLE
+	if state == State.FOLLOWING:
+		AudioManager.play_follow_exchange()
 
 
 ## Correct delivery: walk into the collection area and hold this slot.
@@ -290,10 +292,15 @@ func _on_reached_target() -> void:
 			velocity = Vector2.ZERO
 			state = State.IDLE
 		State.TO_STAGE:
-			_has_target = false
-			velocity = Vector2.ZERO
-			_on_stage = true
-			state = State.ON_STAGE
+			enter_stage()
+
+
+## Mark this member as part of the off-screen stage band.
+func enter_stage() -> void:
+	_has_target = false
+	velocity = Vector2.ZERO
+	_on_stage = true
+	state = State.ON_STAGE
 
 
 func _separation_velocity() -> Vector2:

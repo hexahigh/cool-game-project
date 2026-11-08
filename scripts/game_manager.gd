@@ -109,6 +109,8 @@ const MUFFLE_CLOSED_HZ := 900.0
 const MUFFLE_OPEN_HZ := 20500.0
 const MUFFLE_BUS_PREFIX := "Muffled_"
 const ISOLATION_BUS_PREFIX := "Isolated_"
+## Out-of-sight performance position behind the center of the top wall.
+const HIDDEN_STAGE_POSITION := Vector2(0, -520)
 
 var state: int = State.INTRO
 
@@ -118,14 +120,12 @@ var _round_index := 0
 var _active_band: Dictionary = {}
 var _last_shown_second := -1
 var _stage_band_members: Array = []
-var _stage_row := 0
 var _band_fade := 1.0
 var _band_fading := false
 
 var _player: Node2D
 var _area: Node
 var _hud: Node
-var _stage: Node
 var _characters_root: Node2D
 
 
@@ -138,7 +138,6 @@ func _ready() -> void:
 	_player = get_tree().get_first_node_in_group("player")
 	_area = get_parent().get_node("CollectionArea")
 	_hud = get_parent().get_node("HUD")
-	_stage = get_parent().get_node("Stage")
 	_characters_root = get_parent().get_node("Characters")
 
 	_ensure_muffle_buses()
@@ -146,6 +145,7 @@ func _ready() -> void:
 	_hud.start_pressed.connect(_on_start)
 	_hud.restart_pressed.connect(_on_restart)
 	_area.band_complete.connect(_on_band_complete)
+	_area.time_penalty_applied.connect(_on_time_penalty_applied)
 
 	_build_roster()
 
@@ -170,9 +170,51 @@ func _enter_menu_preview() -> void:
 		_player.set_physics_process(false)
 
 
+func _on_time_penalty_applied(seconds: float) -> void:
+	_hud.show_time_penalty(seconds)
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if state != State.PLAYING:
+		return
+
+	if event.is_action_pressed("follow_nearest"):
+		_follow_nearest_member()
+		get_viewport().set_input_as_handled()
+	elif event.is_action_pressed("stop_following"):
+		_stop_all_following()
+		get_viewport().set_input_as_handled()
+
+
+## Space: start following with the closest member that is not already following.
+func _follow_nearest_member() -> void:
+	if _player == null:
+		return
+
+	var nearest = null
+	var nearest_distance := INF
+	for character in _characters:
+		if not character.is_collectible() or character.is_following():
+			continue
+
+		var distance: float = character.global_position.distance_to(_player.global_position)
+		if distance < nearest_distance:
+			nearest_distance = distance
+			nearest = character
+
+	if nearest != null:
+		nearest.toggle_follow()
+
+
+## Escape: send every follower back to idling.
+func _stop_all_following() -> void:
+	for character in _characters:
+		if character.is_following():
+			character.toggle_follow()
+
+
 func _process(delta: float) -> void:
 	_update_band_fade_in(delta)
-
 	if state != State.PLAYING:
 		return
 
@@ -368,12 +410,7 @@ func _build_look_combos() -> Array:
 
 func _place_characters() -> void:
 	var blocked: Array[Rect2] = []
-	for crate_name in ["CrateA", "CrateB"]:
-		var crate := _crate_rect(crate_name)
-		if crate.size != Vector2.ZERO:
-			blocked.append(crate)
 	blocked.append(_area.get_area_rect().grow(35))
-	blocked.append(_stage.get_stage_rect().grow(20))
 
 	var placed: Array[Vector2] = []
 	for member in _characters:
@@ -383,7 +420,7 @@ func _place_characters() -> void:
 
 
 func _find_spawn(placed: Array[Vector2], blocked: Array[Rect2]) -> Vector2:
-	var bounds := Rect2(-470, -245, 940, 490)
+	var bounds := Rect2(-720, -384, 1440, 768)
 
 	for relax in 10:
 		var needed := maxf(min_character_distance - float(relax) * 10.0, 70.0)
@@ -411,17 +448,6 @@ func _find_spawn(placed: Array[Vector2], blocked: Array[Rect2]) -> Vector2:
 				return pos
 
 	return Vector2(randf_range(-400, 400), randf_range(-200, 200))
-
-
-func _crate_rect(crate_name: String) -> Rect2:
-	var body := get_parent().get_node_or_null("Room/" + crate_name)
-	if body == null:
-		return Rect2()
-	var shape_node = body.get_node_or_null("Shape")
-	if shape_node == null or shape_node.shape == null:
-		return Rect2()
-	var size: Vector2 = shape_node.shape.size
-	return Rect2(body.global_position - size * 0.5, size).grow(45)
 
 
 func _on_start() -> void:
@@ -475,17 +501,20 @@ func _send_band_to_stage() -> void:
 		if character.band_id == _active_band.id:
 			members.append(character)
 
-	var new_row := 0 if _stage_band_members.is_empty() else 1 - _stage_row
 	_fade_band_onto_stage(_active_band.id, stage_audio_fade_seconds)
 	for i in members.size():
-		members[i].go_to_stage(_stage.get_slot(i, members.size(), new_row), stage_audio_fade_seconds)
+		members[i].go_to_stage(_area.get_exit_position(i, members.size()), stage_audio_fade_seconds)
 
 	await get_tree().create_timer(walk_seconds).timeout
 
-	# The new band has walked onto the stage; retire the previous one.
+	# The band has left through the side exit. It now performs out of sight,
+	# with its muffled audio coming from behind the top wall.
 	_clear_stage_band()
+	for member in members:
+		if is_instance_valid(member):
+			member.global_position = HIDDEN_STAGE_POSITION
+			member.enter_stage()
 	_stage_band_members = members
-	_stage_row = new_row
 
 	_round_index += 1
 	if _round_index >= _band_order.size():

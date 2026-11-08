@@ -6,6 +6,8 @@ extends CanvasLayer
 signal start_pressed
 signal restart_pressed
 
+const TIMER_COLOR := Color(1.0, 0.88, 0.35)
+
 var _top_bar: ColorRect
 var _band_label: Label
 var _timer_label: Label
@@ -15,6 +17,7 @@ var _end_title: Label
 var _end_message: Label
 var _start_button: Button
 var _restart_button: Button
+var _timer_flash_tween: Tween
 
 
 func _ready() -> void:
@@ -41,7 +44,7 @@ func _build() -> void:
 	_band_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_band_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 
-	_timer_label = _label("05:00", 30, Color(1.0, 0.88, 0.35))
+	_timer_label = _label("05:00", 30, TIMER_COLOR)
 	_timer_label.name = "TimerLabel"
 	_top_bar.add_child(_timer_label)
 	_timer_label.set_anchors_and_offsets_preset(Control.PRESET_TOP_WIDE)
@@ -159,6 +162,55 @@ func set_timer(seconds: float) -> void:
 	var minutes := int(total / 60.0)
 	var secs := total % 60
 	_timer_label.text = "%02d:%02d" % [minutes, secs]
+
+
+## Red-flash the countdown and float the lost seconds down from it.
+func show_time_penalty(seconds: float) -> void:
+	_flash_timer()
+	_spawn_time_penalty_text(seconds)
+
+
+func _flash_timer() -> void:
+	if is_instance_valid(_timer_flash_tween):
+		_timer_flash_tween.kill()
+
+	_timer_label.modulate = Color.WHITE
+	var flash_color := Color(1.0, 0.16, 0.12)
+	_set_timer_color(flash_color)
+	_timer_flash_tween = create_tween()
+	_timer_flash_tween.tween_method(_set_timer_color, flash_color, TIMER_COLOR, 0.6) \
+		.set_trans(Tween.TRANS_SINE) \
+		.set_ease(Tween.EASE_OUT)
+
+
+func _set_timer_color(color: Color) -> void:
+	_timer_label.add_theme_color_override("font_color", color)
+
+
+func _spawn_time_penalty_text(seconds: float) -> void:
+	var text := _label("-%d" % int(seconds), 28, Color(1.0, 0.2, 0.15))
+	text.name = "TimePenalty"
+	text.size = Vector2(90.0, 40.0)
+	text.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	text.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	add_child(text)
+
+	var timer_rect := _timer_label.get_global_rect()
+	text.position = Vector2(
+		timer_rect.get_center().x - text.size.x * 0.5,
+		timer_rect.end.y + 2.0
+	)
+
+	var move_tween := create_tween()
+	move_tween.tween_property(text, "position:y", text.position.y + 64.0, 1.0) \
+		.set_trans(Tween.TRANS_SINE) \
+		.set_ease(Tween.EASE_OUT)
+	move_tween.tween_callback(text.queue_free)
+
+	var fade_tween := create_tween()
+	fade_tween.tween_property(text, "modulate:a", 0.0, 0.9) \
+		.set_trans(Tween.TRANS_SINE) \
+		.set_ease(Tween.EASE_IN)
 
 
 func show_game_over() -> void:

@@ -8,11 +8,17 @@ const SELECT_SFX := preload("res://assets/sounds/select.wav")
 
 const SILENCE_DB := -80.0
 const SELECT_PLAYER_COUNT := 3
+const PLAYER_VOICE_COUNT := 6
+const MEMBER_VOICE_COUNT := 19
 
 var _music: AudioStreamPlayer
 var _music_tween: Tween
 var _select_players: Array[AudioStreamPlayer] = []
 var _select_index := 0
+var _voice_player: AudioStreamPlayer
+var _voice_queue: Array[AudioStream] = []
+var _player_voices: Array[AudioStream] = []
+var _member_voices: Array[AudioStream] = []
 
 
 func _ready() -> void:
@@ -34,7 +40,45 @@ func _ready() -> void:
 		add_child(player)
 		_select_players.append(player)
 
+	_player_voices = _load_voices("player", PLAYER_VOICE_COUNT)
+	_member_voices = _load_voices("member", MEMBER_VOICE_COUNT)
+
+	_voice_player = AudioStreamPlayer.new()
+	_voice_player.name = "Voice"
+	add_child(_voice_player)
+	_voice_player.finished.connect(_play_next_voice)
+
 	_music.play()
+
+
+func _load_voices(folder: String, count: int) -> Array[AudioStream]:
+	var voices: Array[AudioStream] = []
+	for i in range(1, count + 1):
+		var path := "res://assets/voice/%s/%s_vo_%02d.wav" % [folder, folder, i]
+		var stream := load(path) as AudioStream
+		if stream != null:
+			voices.append(stream)
+	return voices
+
+
+## Player line first, then the band member's reply.
+func play_follow_exchange() -> void:
+	if _player_voices.is_empty() or _member_voices.is_empty():
+		return
+
+	_voice_queue.append(_player_voices.pick_random())
+	_voice_queue.append(_member_voices.pick_random())
+
+	if not _voice_player.playing:
+		_play_next_voice()
+
+
+func _play_next_voice() -> void:
+	if _voice_queue.is_empty():
+		return
+
+	_voice_player.stream = _voice_queue.pop_front()
+	_voice_player.play()
 
 
 func _stop_all() -> void:
@@ -45,6 +89,11 @@ func _stop_all() -> void:
 	for player in _select_players:
 		player.stop()
 		player.stream = null
+
+	if _voice_player != null:
+		_voice_player.stop()
+		_voice_player.stream = null
+	_voice_queue.clear()
 
 
 func _exit_tree() -> void:

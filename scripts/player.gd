@@ -60,6 +60,6 @@ func _update_facing() -> void:
 
 
 func _update_animation() -> void:
-	var wanted := "walking" if velocity.length() > 10.0 else "idle"
+	var wanted := "walking_2" if velocity.length() > 10.0 else "idle"
 	if _anim.current_animation != wanted:
 		_anim.play(wanted)

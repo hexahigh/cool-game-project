@@ -1,14 +1,15 @@
 extends Node2D
 
-## The drop-off zone in the bottom-left of the room.
+## The drop-off zone in the top-left of the room.
 ## Following characters that enter it are parked (correct band) or ejected
 ## (wrong band). No counts are displayed.
 
 signal band_complete
+signal time_penalty_applied(seconds: float)
 
-const AREA_RECT := Rect2(-500, 60, 350, 225)
-const PARK_RECT := Rect2(-362, 90, 200, 185)
-const EJECT_POINT := Vector2(-50, 30)
+const AREA_RECT := Rect2(-768, -432, 216, 216)
+const PARK_RECT := Rect2(-756, -420, 192, 192)
+const EJECT_POINT := Vector2(-500, -324)
 
 var active_band_id := ""
 var band_size := 0
@@ -77,8 +78,16 @@ func _process(_delta: float) -> void:
 		else:
 			wrong += 1
 			Global.time_left -= 30.0
+			time_penalty_applied.emit(30.0)
 			member.eject(EJECT_POINT)
 
 
 func get_area_rect() -> Rect2:
 	return AREA_RECT
+
+
+## Walk-out target outside the left-wall hole, spread across the opening.
+func get_exit_position(index: int, total: int) -> Vector2:
+	var step := AREA_RECT.size.y / float(maxi(total, 1))
+	var y := AREA_RECT.position.y + (float(index) + 0.5) * step
+	return Vector2(-876.0, y)

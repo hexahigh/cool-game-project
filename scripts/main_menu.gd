@@ -6,6 +6,9 @@ extends Control
 const GAME_SCENE := "res://scenes/main.tscn"
 const CREDITS_SCENE := "res://scenes/credits.tscn"
 
+const START_TEXTURE := preload("res://assets/start.png")
+const CREDITS_TEXTURE := preload("res://assets/credits.png")
+
 const OVERLAY_COLOR := Color(0.02, 0.02, 0.03, 0.68)
 
 
@@ -42,15 +45,15 @@ func _build_ui() -> void:
 	var center := VBoxContainer.new()
 	center.name = "Center"
 	center.alignment = BoxContainer.ALIGNMENT_CENTER
-	center.add_theme_constant_override("separation", 24)
+	center.add_theme_constant_override("separation", 18)
 	center.anchor_left = 0.5
 	center.anchor_right = 0.5
 	center.anchor_top = 0.5
 	center.anchor_bottom = 0.5
 	center.offset_left = -260.0
 	center.offset_right = 260.0
-	center.offset_top = -220.0
-	center.offset_bottom = 220.0
+	center.offset_top = -270.0
+	center.offset_bottom = 270.0
 	ui_layer.add_child(center)
 
 	var logo := TextureRect.new()
@@ -62,12 +65,12 @@ func _build_ui() -> void:
 	logo.texture = LogoTexture.create()
 	center.add_child(logo)
 
-	var play_button := _make_button("Spill")
+	var play_button := _make_image_button(START_TEXTURE)
 	play_button.name = "Play"
 	play_button.pressed.connect(_on_play_pressed)
 	center.add_child(play_button)
 
-	var credits_button := _make_button("Ofre")
+	var credits_button := _make_image_button(CREDITS_TEXTURE)
 	credits_button.name = "Credits"
 	credits_button.pressed.connect(_on_credits_pressed)
 	center.add_child(credits_button)
@@ -75,11 +78,21 @@ func _build_ui() -> void:
 	play_button.grab_focus()
 
 
-func _make_button(text: String) -> Button:
-	var button := Button.new()
-	button.text = text
-	button.custom_minimum_size = Vector2(520, 64)
-	button.add_theme_font_size_override("font_size", 26)
+func _make_image_button(texture: Texture2D) -> TextureButton:
+	var image := texture.get_image()
+	var used := image.get_used_rect()
+
+	var atlas := AtlasTexture.new()
+	atlas.atlas = texture
+	atlas.region = used
+
+	var button := TextureButton.new()
+	button.texture_normal = atlas
+	button.ignore_texture_size = true
+	var width := 420.0
+	var height := width * float(used.size.y) / float(used.size.x)
+	button.custom_minimum_size = Vector2(width, height)
+	button.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	button.mouse_entered.connect(AudioManager.play_select)
 	return button
 
