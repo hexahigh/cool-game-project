@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://sydcesm8n887" path="res://scripts/player.gd" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://bon24pqnk5pkj" path="res://scripts/collection_area.gd" id="4_o6xl0"]
+[ext_resource type="Texture2D" uid="uid://duubc3nd1wnyp" path="res://assets/sprites/furniture/curtain.png" id="5_dp3eg"]
 [ext_resource type="Script" uid="uid://dr0xy7wsdedxy" path="res://scripts/stage.gd" id="5_tipki"]
 [ext_resource type="Script" uid="uid://dniuc8afj72yc" path="res://scripts/hud.gd" id="6_85g3d"]
 [ext_resource type="Script" uid="uid://c4gapq8qigyok" path="res://scripts/game_manager.gd" id="7_choun"]
@@ -37,7 +38,7 @@ size = Vector2(32, 864)
 size = Vector2(165, 99)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tennis"]
-size = Vector2(170, 114)
+size = Vector2(170, 88)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tv"]
 size = Vector2(72, 148)
@@ -154,6 +155,114 @@ scale = Vector2(0.2, 0.2)
 texture = ExtResource("17_tennis")
 
 [node name="Shape" type="CollisionShape2D" parent="Room/Furniture/TennisTable" unique_id=498670485]
+shape = SubResource("RectangleShape2D_tennis")
+
+[node name="Drape" type="StaticBody2D" parent="Room/Furniture" unique_id=227818298]
+position = Vector2(-612, -454)
+
+[node name="Sprite" type="Sprite2D" parent="Room/Furniture/Drape" unique_id=1681647450]
+position = Vector2(0.1, -2.6)
+scale = Vector2(0.085, 0.085)
+texture = ExtResource("5_dp3eg")
+
+[node name="Shape" type="CollisionShape2D" parent="Room/Furniture/Drape" unique_id=661184997]
+position = Vector2(0, -13)
+shape = SubResource("RectangleShape2D_tennis")
+
+[node name="Drape2" type="StaticBody2D" parent="Room/Furniture" unique_id=1461300383]
+position = Vector2(-452, -454)
+
+[node name="Sprite" type="Sprite2D" parent="Room/Furniture/Drape2" unique_id=821136948]
+position = Vector2(0.1, -2.6)
+scale = Vector2(0.085, 0.085)
+texture = ExtResource("5_dp3eg")
+
+[node name="Shape" type="CollisionShape2D" parent="Room/Furniture/Drape2" unique_id=339417243]
+position = Vector2(0, -13)
+shape = SubResource("RectangleShape2D_tennis")
+
+[node name="Drape3" type="StaticBody2D" parent="Room/Furniture" unique_id=1072787562]
+position = Vector2(-292, -454)
+
+[node name="Sprite" type="Sprite2D" parent="Room/Furniture/Drape3" unique_id=334587847]
+position = Vector2(0.1, -2.6)
+scale = Vector2(0.085, 0.085)
+texture = ExtResource("5_dp3eg")
+
+[node name="Shape" type="CollisionShape2D" parent="Room/Furniture/Drape3" unique_id=1919596156]
+position = Vector2(0, -13)
+shape = SubResource("RectangleShape2D_tennis")
+
+[node name="Drape4" type="StaticBody2D" parent="Room/Furniture" unique_id=1775628769]
+position = Vector2(-132, -454)
+
+[node name="Sprite" type="Sprite2D" parent="Room/Furniture/Drape4" unique_id=897732285]
+position = Vector2(0.1, -2.6)
+scale = Vector2(0.085, 0.085)
+texture = ExtResource("5_dp3eg")
+
+[node name="Shape" type="CollisionShape2D" parent="Room/Furniture/Drape4" unique_id=2008388856]
+position = Vector2(0, -13)
+shape = SubResource("RectangleShape2D_tennis")
+
+[node name="Drape5" type="StaticBody2D" parent="Room/Furniture" unique_id=608903337]
+position = Vector2(28, -454)
+
+[node name="Sprite" type="Sprite2D" parent="Room/Furniture/Drape5" unique_id=885491353]
+position = Vector2(0.1, -2.6)
+scale = Vector2(0.085, 0.085)
+texture = ExtResource("5_dp3eg")
+
+[node name="Shape" type="CollisionShape2D" parent="Room/Furniture/Drape5" unique_id=714956547]
+position = Vector2(0, -13)
+shape = SubResource("RectangleShape2D_tennis")
+
+[node name="Drape6" type="StaticBody2D" parent="Room/Furniture" unique_id=695163360]
+position = Vector2(188, -454)
+
+[node name="Sprite" type="Sprite2D" parent="Room/Furniture/Drape6" unique_id=863759945]
+position = Vector2(0.1, -2.6)
+scale = Vector2(0.085, 0.085)
+texture = ExtResource("5_dp3eg")
+
+[node name="Shape" type="CollisionShape2D" parent="Room/Furniture/Drape6" unique_id=1421966190]
+position = Vector2(0, -13)
+shape = SubResource("RectangleShape2D_tennis")
+
+[node name="Drape7" type="StaticBody2D" parent="Room/Furniture" unique_id=1988709704]
+position = Vector2(348, -454)
+
+[node name="Sprite" type="Sprite2D" parent="Room/Furniture/Drape7" unique_id=179050494]
+position = Vector2(0.1, -2.6)
+scale = Vector2(0.085, 0.085)
+texture = ExtResource("5_dp3eg")
+
+[node name="Shape" type="CollisionShape2D" parent="Room/Furniture/Drape7" unique_id=167874726]
+position = Vector2(0, -13)
+shape = SubResource("RectangleShape2D_tennis")
+
+[node name="Drape8" type="StaticBody2D" parent="Room/Furniture" unique_id=452141508]
+position = Vector2(508, -454)
+
+[node name="Sprite" type="Sprite2D" parent="Room/Furniture/Drape8" unique_id=46409695]
+position = Vector2(0.1, -2.6)
+scale = Vector2(0.085, 0.085)
+texture = ExtResource("5_dp3eg")
+
+[node name="Shape" type="CollisionShape2D" parent="Room/Furniture/Drape8" unique_id=89409118]
+position = Vector2(0, -13)
+shape = SubResource("RectangleShape2D_tennis")
+
+[node name="Drape9" type="StaticBody2D" parent="Room/Furniture" unique_id=931063653]
+position = Vector2(668, -454)
+
+[node name="Sprite" type="Sprite2D" parent="Room/Furniture/Drape9" unique_id=673157939]
+position = Vector2(0.1, -2.6)
+scale = Vector2(0.085, 0.085)
+texture = ExtResource("5_dp3eg")
+
+[node name="Shape" type="CollisionShape2D" parent="Room/Furniture/Drape9" unique_id=1759612733]
+position = Vector2(0, -13)
 shape = SubResource("RectangleShape2D_tennis")
 
 [node name="TV" type="StaticBody2D" parent="Room/Furniture" unique_id=498670486]
