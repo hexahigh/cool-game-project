@@ -380,7 +380,7 @@ func _update_idle_dance(delta: float) -> void:
 	var rng = RandomNumberGenerator.new()
 	rng.Randomize()
 
-	_idle_dance_anim = STAGE_ANIMATIONS[rng.rand_weighted(weights)]
+	_idle_dance_anim = STAGE_ANIMATIONS[rng.rand_weighted(IDLE_ANIMATION_WEIGHTS)]
 	var animation := _anim.get_animation(_idle_dance_anim)
 	_idle_dance_time_left = animation.length if animation != null else 1.0
 
