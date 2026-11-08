@@ -32,7 +32,7 @@ func _process(_delta: float) -> void:
 		_tooltip.visible = false
 		return
 
-	_tooltip.text = "Stop following" if _hovered.is_following() else "Follow me"
+	_tooltip.text = "Slutt å følg meg" if _hovered.is_following() else "Følg meg"
 	_place_tooltip(_mouse_position)
 	_tooltip.visible = true
 
@@ -49,7 +49,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 	target.toggle_follow()
 	_hovered = target
-	_tooltip.text = "Stop following" if target.is_following() else "Follow me"
+	_tooltip.text = "Slutt å følg meg" if target.is_following() else "Følg meg"
 	_place_tooltip(event.position)
 	_tooltip.visible = true
 	get_viewport().set_input_as_handled()

@@ -126,6 +126,7 @@ func _build_overlay(node_name: String, title_text: String, body_text: String, bu
 	button.position = Vector2(250, 392)
 	button.size = Vector2(220, 54)
 	button.add_theme_font_size_override("font_size", 22)
+	button.mouse_entered.connect(AudioManager.play_select)
 	panel.add_child(button)
 
 	if is_start:
@@ -150,7 +151,7 @@ func hide_overlays() -> void:
 
 
 func set_band(band_name: String, genre: String, member_count: int) -> void:
-	_band_label.text = "Next Up: %s (%s) — %d members" % [band_name, genre, member_count]
+	_band_label.text = "Neste band: %s (%s) - %d medlemmer" % [band_name, genre, member_count]
 
 
 func set_timer(seconds: float) -> void:
@@ -161,8 +162,8 @@ func set_timer(seconds: float) -> void:
 
 
 func show_game_over() -> void:
-	_end_title.text = "TIME'S UP"
-	_end_message.text = "The band was not delivered in time."
+	_end_title.text = "TIDEN ER UTE"
+	_end_message.text = "Bandet ble ikke klare i tide."
 	_intro.visible = false
 	_end.visible = true
 	_top_bar.visible = false
@@ -170,8 +171,8 @@ func show_game_over() -> void:
 
 
 func show_victory() -> void:
-	_end_title.text = "ALL BANDS COLLECTED"
-	_end_message.text = "Every band made it to the stage. Great work!"
+	_end_title.text = "ALLE BAND BLE SAMLET"
+	_end_message.text = "Alle bandene kom seg på scenen. Bra jobba!"
 	_intro.visible = false
 	_end.visible = true
 	_top_bar.visible = false

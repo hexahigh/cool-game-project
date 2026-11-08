@@ -58,6 +58,8 @@ const BODY_PATHS := [
 	"res://assets/sprites/bodies/lemon.png",
 	"res://assets/sprites/bodies/red_pepper.png",
 	"res://assets/sprites/bodies/yellow_pepper.png",
+	"res://assets/sprites/bodies/apricot.png",
+	"res://assets/sprites/bodies/carrot.png",
 ]
 const ACCESSORY_PATHS := [
 	"res://assets/sprites/accessories/top_hat.png",
@@ -83,6 +85,8 @@ enum State {INTRO, PLAYING, FOCUS, TRANSITION, GAME_OVER, VICTORY}
 @export var walk_seconds: float = 1.6
 ## How long the stage volume drop and low-pass sweep take while a band walks on.
 @export var stage_audio_fade_seconds: float = 1.6
+## Menu music fades out and the band mix fades in over this long at game start.
+@export var band_fade_in_seconds: float = 2.0
 @export var min_character_distance: float = 130.0
 @export var isolate_radius: float = 45.0
 @export var duck_gain: float = 0.22
@@ -104,6 +108,8 @@ var _active_band: Dictionary = {}
 var _last_shown_second := -1
 var _stage_band_members: Array = []
 var _stage_row := 0
+var _band_fade := 1.0
+var _band_fading := false
 
 var _player: Node2D
 var _area: Node
@@ -116,6 +122,8 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	await get_tree().process_frame
 
+	var menu_preview := get_parent().has_meta("menu_preview")
+
 	_player = get_tree().get_first_node_in_group("player")
 	_area = get_parent().get_node("CollectionArea")
 	_hud = get_parent().get_node("HUD")
@@ -123,16 +131,37 @@ func _ready() -> void:
 	_characters_root = get_parent().get_node("Characters")
 
 	_ensure_muffle_buses()
+	AudioManager.play_menu_music()
 	_hud.start_pressed.connect(_on_start)
 	_hud.restart_pressed.connect(_on_restart)
 	_area.band_complete.connect(_on_band_complete)
 
 	_build_roster()
+
+	if menu_preview:
+		_enter_menu_preview()
+		return
+
 	_hud.show_intro()
 	get_tree().paused = true
 
 
+## Keep the world idle and silent behind the main menu / credits screen.
+func _enter_menu_preview() -> void:
+	_hud.visible = false
+
+	var ui := get_parent().get_node_or_null("UI")
+	if ui != null:
+		ui.visible = false
+		ui.process_mode = Node.PROCESS_MODE_DISABLED
+
+	if _player != null:
+		_player.set_physics_process(false)
+
+
 func _process(delta: float) -> void:
+	_update_band_fade_in(delta)
+
 	if state != State.PLAYING:
 		return
 
@@ -145,6 +174,18 @@ func _process(delta: float) -> void:
 
 	if Global.time_left <= 0.0:
 		_game_over()
+
+
+func _update_band_fade_in(delta: float) -> void:
+	if not _band_fading:
+		return
+
+	_band_fade = minf(_band_fade + delta / maxf(band_fade_in_seconds, 0.01), 1.0)
+	for character in _characters:
+		character.set_start_fade(_band_fade)
+
+	if _band_fade >= 1.0:
+		_band_fading = false
 
 
 ## Keep the character nearest the player audible while every other
@@ -374,7 +415,11 @@ func _on_start() -> void:
 	get_tree().paused = false
 	_hud.hide_overlays()
 	for character in _characters:
+		character.set_start_fade(0.0)
 		character.start_audio()
+	_band_fade = 0.0
+	_band_fading = true
+	AudioManager.fade_out_menu_music(band_fade_in_seconds)
 	_round_index = 0
 	_start_round()
 
