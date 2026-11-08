@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dnrqtt4bg52v4"
+path="res://.godot/imported/_ Bass GRP.wav-73ac279f5872c26e4ed00bf68a75adcc.sample"
+
+[deps]
+
+source_file="res://songs/goblings/_ Bass GRP.wav"
+dest_files=["res://.godot/imported/_ Bass GRP.wav-73ac279f5872c26e4ed00bf68a75adcc.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2
