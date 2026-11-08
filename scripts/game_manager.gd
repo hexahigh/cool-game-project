@@ -22,7 +22,7 @@ const BANDS := [
 	{
 		"id": "tangy_tangerine",
 		"name": "Tangy Tangerine",
-		"genre": "Rock",
+		"genre": "Country",
 		"stems": [
 			{"instrument": "Drums", "paths": ["res://songs/tangy-tangerine/mono/kick.mp3", "res://songs/tangy-tangerine/mono/snare.mp3"]},
 			{"instrument": "Guitars", "paths": ["res://songs/tangy-tangerine/mono/lead_guitar.mp3", "res://songs/tangy-tangerine/mono/rhythm_guitar.mp3"]},
