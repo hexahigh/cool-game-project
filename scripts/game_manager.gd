@@ -15,8 +15,7 @@ const BANDS := [
 			{"instrument": "Bass", "paths": ["res://songs/no-messing/mono/bass.mp3"]},
 			{"instrument": "Guitar", "paths": ["res://songs/no-messing/mono/guitar.mp3"]},
 			{"instrument": "Piano", "paths": ["res://songs/no-messing/mono/piano.mp3"]},
-			{"instrument": "Organ", "paths": ["res://songs/no-messing/mono/organ.mp3"]},
-			{"instrument": "Horns", "paths": ["res://songs/no-messing/mono/horns.mp3"]},
+			{"instrument": "Organ & Horns", "paths": ["res://songs/no-messing/mono/organ.mp3", "res://songs/no-messing/mono/horns.mp3"]},
 		],
 	},
 	{
@@ -39,6 +38,16 @@ const BANDS := [
 			{"instrument": "Bass", "paths": ["res://songs/goblings/mono/guitar_bass.ogg"]},
 			{"instrument": "Guitar", "paths": ["res://songs/goblings/mono/guitar_1.ogg", "res://songs/goblings/mono/guitar_2.ogg"]},
 			{"instrument": "Vocals", "paths": ["res://songs/goblings/mono/vocal_kor.ogg", "res://songs/goblings/mono/vocal_edvin.ogg", "res://songs/goblings/mono/vocal_will.ogg", "res://songs/goblings/mono/keys.ogg"]},
+		],
+	},
+	{
+		"id": "ballsy_bananas",
+		"name": "Ballsy Bananas",
+		"genre": "Classical",
+		"stems": [
+			{"instrument": "Bass", "paths": ["res://songs/enlightenment/mono/bass.ogg"]},
+			{"instrument": "Melody", "paths": ["res://songs/enlightenment/mono/melody.ogg"]},
+			{"instrument": "Instruments", "paths": ["res://songs/enlightenment/mono/instruments.ogg"]},
 		],
 	}
 ]
