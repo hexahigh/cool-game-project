@@ -1,7 +1,5 @@
 extends CharacterBody2D
 
-const MOUTH_SCENE := preload("res://entities/mouth.tscn")
-
 ## A musician character: plays one or more stems, follows the player when
 ## clicked, parks in the collection area, leaves for the stage, and flips when
 ## it moves horizontally under its own power (never from being pushed).
@@ -84,10 +82,7 @@ func _ready() -> void:
 	_idle_dance_delay = randf_range(idle_dance_min_delay, idle_dance_max_delay)
 
 	# Mouth is a separate animated scene; attach it to the face.
-	var mouth := MOUTH_SCENE.instantiate()
-	mouth.name = "Mouth"
-	mouth.position = Vector2(244.44, -220)
-	_body.add_child(mouth)
+	var mouth = _body.find_child("Mouth")
 	_mouth_anim = mouth.get_node("AnimationPlayer")
 	_mouth_anim.play("idle")
 
