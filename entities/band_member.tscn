@@ -410,6 +410,50 @@ tracks/20/keys = {
 "points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 0.2, -0.075, 0, 0.28611112, 0, 1, -0.25, 0, 0.25, 0, 2.02, -0.07722221, 0, 0.11166668, 0, 1, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0, 0.3, 0.75, 1.8666667, 2.33, 3)
 }
+tracks/21/type = "bezier"
+tracks/21/imported = false
+tracks/21/enabled = true
+tracks/21/path = NodePath("left_hand:position:x")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/keys = {
+"handle_modes": PackedInt32Array(0, 2, 0, 0),
+"points": PackedFloat32Array(-17.000027, -0.25, 0, 0.25, 0, 1.9999962, -0.15833586, -3.1666706, 0, 0, 1.9999962, -0.15833586, -3.1666706, 0, 0, -17.000027, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.9500152, 1.6686614, 3)
+}
+tracks/22/type = "bezier"
+tracks/22/imported = false
+tracks/22/enabled = true
+tracks/22/path = NodePath("left_hand:position:y")
+tracks/22/interp = 1
+tracks/22/loop_wrap = true
+tracks/22/keys = {
+"handle_modes": PackedInt32Array(0, 2, 0, 0),
+"points": PackedFloat32Array(-11.19501, -0.25, 0, 0.25, 0, -21.673204, -0.15833586, 1.7463657, 0, 0, -21.673204, -0.15833586, 1.7463657, 0, 0, -11.19501, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.9500152, 1.6686614, 3)
+}
+tracks/23/type = "bezier"
+tracks/23/imported = false
+tracks/23/enabled = true
+tracks/23/path = NodePath("right_hand:position:x")
+tracks/23/interp = 1
+tracks/23/loop_wrap = true
+tracks/23/keys = {
+"handle_modes": PackedInt32Array(0, 2, 0, 0),
+"points": PackedFloat32Array(16.566572, -0.25, 0, 0.25, 0, 9.999996, -0.15833586, 1.0944293, 0, 0, 9.999996, -0.15833586, 1.0944293, 0, 0, 16.566572, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.9500152, 1.6686614, 3)
+}
+tracks/24/type = "bezier"
+tracks/24/imported = false
+tracks/24/enabled = true
+tracks/24/path = NodePath("right_hand:position:y")
+tracks/24/interp = 1
+tracks/24/loop_wrap = true
+tracks/24/keys = {
+"handle_modes": PackedInt32Array(0, 2, 0, 0),
+"points": PackedFloat32Array(-10.251859, -0.25, 0, 0.25, 0, -23.684765, -0.15833586, 2.2388177, 0, 0, -23.684765, -0.15833586, 2.2388177, 0, 0, -10.251859, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.9500152, 1.6686614, 3)
+}
 
 [sub_resource type="Animation" id="Animation_gw1md"]
 resource_name = "dancing_1"
@@ -1095,6 +1139,50 @@ tracks/10/keys = {
 "points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0.8, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0, 0.36198038, 1)
 }
+tracks/11/type = "bezier"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("right_hand:position:x")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(16.566572, -0.25, 0, 0.25, 0, 16.56657, -0.021033546, 3.1789145e-07, 0, 0, 16.566572, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.5, 1)
+}
+tracks/12/type = "bezier"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("right_hand:position:y")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(-10.251859, -0.25, 0, 0.25, 0, -11.251859, -0.021033546, 0.16666667, 0, 0, -10.251859, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.5, 1)
+}
+tracks/13/type = "bezier"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("left_hand:position:x")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(-17.000027, -0.25, 0, 0.25, 0, -17.000027, -0.021033546, 0, 0, 0, -17.000027, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.5, 1)
+}
+tracks/14/type = "bezier"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("left_hand:position:y")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(-11.19501, -0.25, 0, 0.25, 0, -12.195009, -0.021033546, 0.16666651, 0, 0, -11.19501, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.5, 1)
+}
 
 [sub_resource type="Animation" id="Animation_udyt4"]
 resource_name = "walking"
@@ -1255,7 +1343,7 @@ _data = {
 }
 
 [node name="BandMember" type="Node2D" unique_id=1355637323]
-scale = Vector2(1, 1.0186118)
+rotation = 6.2831855
 
 [node name="right_foot" type="Sprite2D" parent="." unique_id=1324611511]
 position = Vector2(2.9999995, -3.0000002)
@@ -1282,8 +1370,7 @@ position = Vector2(244.44446, -333.33337)
 texture = ExtResource("3_amg7d")
 
 [node name="accessory" type="Sprite2D" parent="body" unique_id=644283547]
-position = Vector2(175.67937, -600)
-rotation = 0.20071095
+position = Vector2(155.55554, -600)
 scale = Vector2(0.6302084, 0.71701396)
 texture = ExtResource("4_jhqwb")
 offset = Vector2(-1.5258789e-05, -402.90552)
