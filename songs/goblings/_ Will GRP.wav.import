@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://ds0ew524uncbc"
+path="res://.godot/imported/_ Will GRP.wav-0fa273f5097aa2bd5555fd35d8df0637.sample"
+
+[deps]
+
+source_file="res://songs/goblings/_ Will GRP.wav"
+dest_files=["res://.godot/imported/_ Will GRP.wav-0fa273f5097aa2bd5555fd35d8df0637.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

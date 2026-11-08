@@ -30,6 +30,17 @@ const BANDS := [
 			{"instrument": "Mandolin", "paths": ["res://songs/tangy-tangerine/mono/mandolin.mp3"]},
 		],
 	},
+	{
+		"id": "avenged_apples",
+		"name": "Avenged Apples",
+		"genre": "Hard Punk Rock",
+		"stems": [
+			{"instrument": "Drums", "paths": ["res://songs/goblings/mono/drum.ogg", "res://songs/goblings/mono/rack.ogg"]},
+			{"instrument": "Bass", "paths": ["res://songs/goblings/mono/guitar_bass.ogg"]},
+			{"instrument": "Guitar", "paths": ["res://songs/goblings/mono/guitar_1.ogg", "res://songs/goblings/mono/guitar_2.ogg"]},
+			{"instrument": "Vocals", "paths": ["res://songs/goblings/mono/vocal_kor.ogg", "res://songs/goblings/mono/vocal_edvin.ogg", "res://songs/goblings/mono/vocal_will.ogg", "res://songs/goblings/mono/keys.ogg"]},
+		],
+	}
 ]
 
 const BODY_PATHS := [
