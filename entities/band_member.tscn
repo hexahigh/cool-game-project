@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://co8brmav50ei2"]
 
-[ext_resource type="Texture2D" uid="uid://bay50sd6ik48r" path="res://assets/sprites/foot.png" id="1_ixuau"]
+[ext_resource type="Texture2D" uid="uid://bay50sd6ik48r" path="res://assets/sprites/feet/brown_foot.png" id="1_ixuau"]
 [ext_resource type="Texture2D" uid="uid://dch7x4pn658m2" path="res://assets/sprites/bodies/red_pepper.png" id="1_qt8wm"]
 [ext_resource type="Texture2D" uid="uid://daly6hrxmw0vj" path="res://assets/sprites/eyes/default_eyes.png" id="3_amg7d"]
 [ext_resource type="PackedScene" uid="uid://2nabyqot1lvh" path="res://entities/mouth.tscn" id="3_udyt4"]
@@ -1287,7 +1287,7 @@ _data = {
 }
 
 [node name="BandMember" type="Node2D" unique_id=1355637323]
-scale = Vector2(1, 1)
+scale = Vector2(1e-05, 1e-05)
 
 [node name="right_foot" type="Sprite2D" parent="." unique_id=1324611511]
 position = Vector2(2.9999995, -3.0000002)
@@ -1306,6 +1306,7 @@ position = Vector2(177.7778, -111.1112)
 
 [node name="eyes" type="Sprite2D" parent="body" unique_id=740870741]
 position = Vector2(244.44446, -333.33337)
+scale = Vector2(1e-05, 1e-05)
 texture = ExtResource("3_amg7d")
 
 [node name="accessory" type="Sprite2D" parent="body" unique_id=644283547]
