@@ -76,6 +76,7 @@ func _process(_delta: float) -> void:
 					band_complete.emit()
 		else:
 			wrong += 1
+			Global.time_left -= 30.0
 			member.eject(EJECT_POINT)
 
 

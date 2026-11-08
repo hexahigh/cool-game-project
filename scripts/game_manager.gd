@@ -65,7 +65,6 @@ var state: int = State.INTRO
 var _characters: Array = []
 var _band_order: Array = []
 var _round_index := 0
-var _time_left := 0.0
 var _active_band: Dictionary = {}
 var _last_shown_second := -1
 var _stage_band_members: Array = []
@@ -103,13 +102,13 @@ func _process(delta: float) -> void:
 		return
 
 	_update_isolation()
-	_time_left -= delta
-	var shown := maxi(int(ceil(_time_left)), 0)
+	Global.time_left -= delta
+	var shown := maxi(int(ceil(Global.time_left)), 0)
 	if shown != _last_shown_second:
 		_last_shown_second = shown
 		_hud.set_timer(float(shown))
 
-	if _time_left <= 0.0:
+	if Global.time_left <= 0.0:
 		_game_over()
 
 
@@ -286,7 +285,7 @@ func _on_start() -> void:
 
 func _start_round() -> void:
 	_active_band = _band_order[_round_index]
-	_time_left = round_seconds
+	Global.time_left = round_seconds
 	_last_shown_second = -1
 
 	_area.start_round(_active_band.id, _active_band.name, _active_band.stems.size())
@@ -295,7 +294,7 @@ func _start_round() -> void:
 		character.set_isolation_gain(1.0)
 
 	_hud.set_band(_active_band.name, _active_band.genre, _active_band.stems.size())
-	_hud.set_timer(_time_left)
+	_hud.set_timer(Global.time_left)
 	state = State.PLAYING
 
 
